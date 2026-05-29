@@ -183,6 +183,10 @@ const Capsule = (() => {
     const main = document.querySelector('.capsule-main');
     if (!main) return;
     const lang = Lang.get();
+    // Calcul dynamique du module suivant
+    const num = parseInt(moduleId.split('-')[1]);
+    const nextNum = String(num + 1).padStart(2, '0');
+    const nextFile = `module-${nextNum}.html`;
     main.innerHTML = `
       <div class="completion-banner step-content">
         <div class="completion-icon">🎉</div>
@@ -197,7 +201,7 @@ const Capsule = (() => {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
             ${lang === 'fr' ? 'Retour au hub' : 'Back to hub'}
           </a>
-          <a href="module-02.html" class="btn btn-success">
+          <a href="${nextFile}" class="btn btn-success">
             ${lang === 'fr' ? 'Module suivant' : 'Next module'}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
