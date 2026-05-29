@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-fr="Module 01 — Profil de l'entreprise" data-en="Module 01 — Company Profile">Module 01 — Profil de l'entreprise</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<!-- ── HEADER ────────────────────────────────────────────────── -->
+<header class="guide-header">
+  <a href="index.html" class="header-brand">
+    <div class="header-logo">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    <span class="header-brand-name">Comulead</span>
+    <span class="header-brand-sub" data-fr="Guide utilisateur" data-en="User Guide">Guide utilisateur</span>
+  </a>
+  <div class="header-right">
+    <a href="index.html" class="back-to-hub">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+      <span data-fr="Hub" data-en="Hub">Hub</span>
+    </a>
+    <div class="lang-toggle">
+      <button class="lang-btn active" data-lang="fr">FR</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+  </div>
+</header>
+
+<!-- ── LAYOUT CAPSULE ────────────────────────────────────────── -->
+<div class="capsule-layout">
+
+  <!-- Sidebar -->
+  <aside class="capsule-sidebar" id="capsuleSidebar">
+    <div class="sidebar-module-name" data-fr="Module 01 — Profil entreprise" data-en="Module 01 — Company Profile">
+      Module 01 — Profil entreprise
+    </div>
+    <!-- Steps injectés par JS -->
+    <div class="sidebar-progress">
+      <div class="sidebar-progress-label">
+        <span data-fr="Progression" data-en="Progress">Progression</span>
+        <span class="sidebar-progress-pct">0%</span>
+      </div>
+      <div class="progress-track" style="height:6px">
+        <div class="progress-fill" style="width:0%"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Contenu principal -->
+  <main class="capsule-main" id="capsuleMain">
+    <!-- Injecté par JS -->
+  </main>
+
+</div>
+
+<script src="assets/core.js"></script>
+<script>
+/* ─────────────────────────────────────────────────────────────
+   MODULE 01 — DONNÉES CONTENU BILINGUE
+   Chaque step correspond à un onglet de la modale "Compléter
+   le profil de l'entreprise"
+────────────────────────────────────────────────────────────── */
+
+const MODULE_ID  = 'module-01';
+const STEPS_DATA = [
+  {
+    /* ── ÉTAPE 1 : Informations de base ─────────────────── */
+    capture: 'assets/captures/cap-01-base.png',
+    fr: {
+      tab:   'Informations de base',
+      title: 'Les informations de base de ton entreprise',
+      intro: 'Le premier onglet contient les informations essentielles d\'identification. Comulead a besoin de ces données pour personnaliser tes analyses et tes rapports.',
+      capLabel: 'Onglet 1 — Informations de base',
+      fieldsTitle: 'Champs à compléter',
+      fields: [
+        { name: 'Nom de l\'entreprise', hint: 'La raison sociale officielle de ton entreprise.', required: true },
+        { name: 'Email', hint: 'L\'adresse courriel principale pour les communications et notifications.', required: true },
+        { name: 'Pays', hint: 'Sélectionne ton pays dans la liste déroulante. Détermine la devise et le cadre réglementaire.', required: true },
+        { name: 'Code postal', hint: 'Ton code postal ou ZIP.', required: true },
+        { name: 'Adresse', hint: 'L\'adresse physique de ton siège social.', required: false },
+        { name: 'Ville', hint: 'La ville où est domiciliée ton entreprise.', required: false },
+        { name: 'Téléphone', hint: 'Commence par sélectionner le code de composition (Dial Code) du bon pays, puis entre ton numéro.', required: false },
+        { name: 'Site web', hint: 'Ton site web d\'entreprise (ex: www.monentreprise.com).', required: false },
+        { name: 'Logo', hint: 'Téléverse ton logo — il apparaîtra sur tes rapports exportés. Format : PNG ou SVG recommandé.', required: false },
+      ],
+      tip: '<strong>Conseil :</strong> Ton logo et ton nom d\'entreprise apparaîtront en en-tête de tous tes rapports PDF exportés. Prends le temps de bien les configurer maintenant.',
+      next: 'Informations détaillées →',
+    },
+    en: {
+      tab:   'Basic Information',
+      title: 'Your company\'s basic information',
+      intro: 'The first tab contains essential identification details. Comulead uses this information to personalize your analyses and reports.',
+      capLabel: 'Tab 1 — Basic Information',
+      fieldsTitle: 'Fields to fill in',
+      fields: [
+        { name: 'Company name', hint: 'The official legal name of your company.', required: true },
+        { name: 'Email', hint: 'The main email address for communications and notifications.', required: true },
+        { name: 'Country', hint: 'Select your country from the dropdown. This determines your currency and regulatory framework.', required: true },
+        { name: 'Postal code', hint: 'Your postal or ZIP code.', required: true },
+        { name: 'Address', hint: 'The physical address of your head office.', required: false },
+        { name: 'City', hint: 'The city where your company is registered.', required: false },
+        { name: 'Phone', hint: 'First select the correct Dial Code for your country, then enter your number.', required: false },
+        { name: 'Website', hint: 'Your company website (e.g., www.mycompany.com).', required: false },
+        { name: 'Logo', hint: 'Upload your logo — it will appear on your exported reports. PNG or SVG format recommended.', required: false },
+      ],
+      tip: '<strong>Tip:</strong> Your logo and company name will appear in the header of all exported PDF reports. Take time to configure these properly now.',
+      next: 'Detailed Information →',
+    }
+  },
+
+  {
+    /* ── ÉTAPE 2 : Informations détaillées ──────────────── */
+    capture: 'assets/captures/cap-01-detail.png',
+    fr: {
+      tab:   'Informations détaillées',
+      title: 'Le profil détaillé de ton entreprise',
+      intro: 'Ces informations permettent à Cortex AI de mieux comprendre ton contexte et de calibrer ses recommandations à la réalité de ton entreprise.',
+      capLabel: 'Onglet 2 — Informations détaillées',
+      fieldsTitle: 'Champs à compléter',
+      fields: [
+        { name: 'Slogan', hint: 'Ton slogan ou tagline d\'entreprise (ex: « L\'innovation au service de la croissance »).', required: false },
+        { name: 'Forme juridique', hint: 'Sélectionne le statut légal de ton entreprise (SA, SARL, Inc., etc.).', required: false },
+        { name: 'Année de création', hint: 'L\'année de fondation de ton entreprise. Utilisé pour calculer l\'ancienneté dans les analyses comparatives.', required: false },
+        { name: 'Nombre d\'employés', hint: 'La taille actuelle de ton équipe. Comulead adapte ses benchmarks selon cette donnée.', required: false },
+        { name: 'Description de l\'activité', hint: 'Décris ton activité principale en 2-3 phrases. Cette description aide Cortex AI à contextualiser ses analyses.', required: false },
+      ],
+      tip: '<strong>Important :</strong> Plus ta description d\'activité est précise, plus les recommandations de Cortex AI seront pertinentes pour ton secteur.',
+      next: 'Documents →',
+    },
+    en: {
+      tab:   'Detailed Information',
+      title: 'Your company\'s detailed profile',
+      intro: 'This information helps Cortex AI better understand your context and calibrate its recommendations to your business reality.',
+      capLabel: 'Tab 2 — Detailed Information',
+      fieldsTitle: 'Fields to fill in',
+      fields: [
+        { name: 'Tagline', hint: 'Your company tagline or slogan (e.g., "Innovation driving growth").', required: false },
+        { name: 'Legal form', hint: 'Select your company\'s legal status (Inc., LLC, etc.).', required: false },
+        { name: 'Year founded', hint: 'The year your company was founded. Used to calculate seniority in comparative analyses.', required: false },
+        { name: 'Number of employees', hint: 'Your current team size. Comulead adjusts its benchmarks based on this data.', required: false },
+        { name: 'Business description', hint: 'Describe your main business in 2-3 sentences. This helps Cortex AI contextualize its analyses.', required: false },
+      ],
+      tip: '<strong>Important:</strong> The more precise your business description, the more relevant Cortex AI\'s recommendations will be for your sector.',
+      next: 'Documents →',
+    }
+  },
+
+  {
+    /* ── ÉTAPE 3 : Documents ─────────────────────────────── */
+    capture: 'assets/captures/cap-01-docs.png',
+    fr: {
+      tab:   'Documents',
+      title: 'Les documents officiels de l\'entreprise',
+      intro: 'Cette section te permet de téléverser les documents légaux de ton entreprise. Ils sont requis pour certaines fonctionnalités avancées de la plateforme.',
+      capLabel: 'Onglet 3 — Documents',
+      fieldsTitle: 'Types de documents acceptés',
+      fields: [
+        { name: 'Certificat d\'immatriculation', hint: 'Le document officiel d\'enregistrement de ton entreprise.', required: false },
+        { name: 'Registre du commerce', hint: 'Extrait de registre de commerce prouvant l\'existence légale de l\'entreprise.', required: false },
+        { name: 'Certificat d\'identification fiscale', hint: 'Ton numéro et certificat d\'identification fiscale (NIF/TIN).', required: false },
+        { name: 'Statuts de l\'entreprise', hint: 'Les statuts constitutifs de ta société.', required: false },
+        { name: 'Certificat d\'immatriculation TVA', hint: 'Si applicable — ton numéro de TVA/TPS.', required: false },
+        { name: 'Pièce d\'identité du dirigeant', hint: 'Carte d\'identité ou passeport du représentant légal.', required: false },
+      ],
+      tip: '<strong>Note :</strong> Clique sur le type de document souhaité pour le sélectionner (fond bleu = sélectionné), puis téléverse le fichier correspondant. Taille maximale : 1 Mo par document.',
+      next: 'Informations avancées →',
+    },
+    en: {
+      tab:   'Documents',
+      title: 'Your company\'s official documents',
+      intro: 'This section allows you to upload your company\'s legal documents. They are required for certain advanced platform features.',
+      capLabel: 'Tab 3 — Documents',
+      fieldsTitle: 'Accepted document types',
+      fields: [
+        { name: 'Certificate of incorporation', hint: 'The official registration document for your company.', required: false },
+        { name: 'Trade register', hint: 'Trade register extract proving the legal existence of the company.', required: false },
+        { name: 'Tax identification certificate', hint: 'Your tax identification number and certificate (TIN/NIF).', required: false },
+        { name: 'Company bylaws', hint: 'The articles of incorporation of your company.', required: false },
+        { name: 'VAT registration certificate', hint: 'If applicable — your VAT/GST number.', required: false },
+        { name: 'Director\'s ID', hint: 'Identity card or passport of the legal representative.', required: false },
+      ],
+      tip: '<strong>Note:</strong> Click on the desired document type to select it (blue background = selected), then upload the corresponding file. Maximum size: 1 MB per document.',
+      next: 'Advanced Settings →',
+    }
+  },
+
+  {
+    /* ── ÉTAPE 4 : Informations avancées ─────────────────── */
+    capture: 'assets/captures/cap-01-avancees.png',
+    fr: {
+      tab:   'Informations avancées',
+      title: 'Le contexte stratégique de ton entreprise',
+      intro: 'Ces données sont au cœur de Cortex AI. Elles permettent à la plateforme de calibrer ses analyses comparatives et de produire des recommandations vraiment adaptées à ton marché.',
+      capLabel: 'Onglet 4 — Informations avancées',
+      fieldsTitle: 'Champs à compléter',
+      fields: [
+        { name: 'Secteurs', hint: 'Sélectionne ton ou tes secteurs d\'activité principaux. Tu peux choisir plusieurs secteurs.', required: true },
+        { name: 'Précisez si autre', hint: 'Si ton secteur n\'est pas dans la liste, décris-le ici.', required: false },
+        { name: 'Types de clients', hint: 'Sélectionne ton type de clientèle principale (B2B Entreprises, B2C Particuliers, B2G Gouvernement, etc.).', required: false },
+        { name: 'Clients mensuels', hint: 'Nombre moyen de clients actifs par mois. Donnée clé pour les analyses de tendances.', required: false },
+        { name: 'Chiffre d\'affaires mensuel', hint: 'Ton chiffre d\'affaires mensuel moyen (en milliers). Utilisé pour les benchmarks sectoriels.', required: false },
+        { name: 'Zone géographique', hint: 'La portée géographique de ton marché (Local, Régional, National, International).', required: false },
+        { name: 'Concurrents principaux', hint: 'Liste tes 2-3 concurrents directs, séparés par des virgules. Permet d\'enrichir les analyses comparatives.', required: false },
+        { name: 'Produits/services principaux', hint: 'Décris tes 2-3 offres principales. Cortex AI utilisera cette donnée pour contextualiser les analyses de ventes.', required: false },
+        { name: 'Défis actuels', hint: 'Quels sont tes défis opérationnels ou commerciaux du moment ? Influence la priorisation des recommandations.', required: false },
+        { name: 'Objectifs à court terme', hint: 'Tes objectifs pour les 3-6 prochains mois. Permet à Cortex AI d\'aligner ses recommandations sur tes priorités.', required: false },
+      ],
+      tip: '<strong>Ces données sont déterminantes :</strong> Cortex AI utilise ton secteur, ta zone géographique et tes objectifs pour calibrer chaque analyse et recommandation. Plus tu complètes cette section, plus les insights seront précis.',
+      next: 'Terminer',
+    },
+    en: {
+      tab:   'Advanced Settings',
+      title: 'Your company\'s strategic context',
+      intro: 'This data is at the core of Cortex AI. It allows the platform to calibrate its comparative analyses and produce recommendations truly tailored to your market.',
+      capLabel: 'Tab 4 — Advanced Settings',
+      fieldsTitle: 'Fields to fill in',
+      fields: [
+        { name: 'Sectors', hint: 'Select your main business sector(s). You can choose multiple sectors.', required: true },
+        { name: 'Specify if other', hint: 'If your sector is not in the list, describe it here.', required: false },
+        { name: 'Client types', hint: 'Select your primary customer type (B2B Companies, B2C Consumers, B2G Government, etc.).', required: false },
+        { name: 'Monthly clients', hint: 'Average number of active clients per month. Key data point for trend analyses.', required: false },
+        { name: 'Monthly revenue', hint: 'Your average monthly revenue (in thousands). Used for sector benchmarks.', required: false },
+        { name: 'Geographic area', hint: 'The geographic reach of your market (Local, Regional, National, International).', required: false },
+        { name: 'Main competitors', hint: 'List your 2-3 direct competitors, separated by commas. Enriches comparative analyses.', required: false },
+        { name: 'Main products/services', hint: 'Describe your 2-3 main offerings. Cortex AI uses this to contextualize sales analyses.', required: false },
+        { name: 'Current challenges', hint: 'What are your current operational or business challenges? Influences the prioritization of recommendations.', required: false },
+        { name: 'Short-term goals', hint: 'Your goals for the next 3-6 months. Allows Cortex AI to align recommendations with your priorities.', required: false },
+      ],
+      tip: '<strong>This data is critical:</strong> Cortex AI uses your sector, geographic area and goals to calibrate every analysis and recommendation. The more you complete this section, the more precise the insights will be.',
+      next: 'Finish',
+    }
+  }
+];
+
+/* ─────────────────────────────────────────────────────────────
+   RENDU ÉTAPE
+────────────────────────────────────────────────────────────── */
+function renderStepContent(index) {
+  const step = STEPS_DATA[index];
+  const lang = Lang.get();
+  const data = step[lang];
+  const isLast = index === STEPS_DATA.length - 1;
+
+  // Construire les champs
+  let fieldsHtml = '<div class="fields-list">';
+  data.fields.forEach(f => {
+    fieldsHtml += `
+      <div class="field-item ${f.required ? 'field-required' : 'field-optional'}">
+        <div class="field-dot"></div>
+        <div class="field-content">
+          <div class="field-name">${f.name}</div>
+          <div class="field-hint">${f.hint}</div>
+        </div>
+        <span class="field-tag ${f.required ? 'tag-required' : 'tag-optional'}">
+          ${f.required
+            ? (lang === 'fr' ? 'Requis' : 'Required')
+            : (lang === 'fr' ? 'Optionnel' : 'Optional')}
+        </span>
+      </div>
+    `;
+  });
+  fieldsHtml += '</div>';
+
+  // Navigation boutons
+  const prevBtn = index > 0
+    ? `<button class="btn btn-ghost" onclick="Capsule.prev()">
+        ${svgArrowLeft()}
+        ${lang === 'fr' ? 'Précédent' : 'Previous'}
+       </button>`
+    : `<a href="index.html" class="btn btn-ghost">
+        ${svgHome()}
+        ${lang === 'fr' ? 'Hub' : 'Hub'}
+       </a>`;
+
+  const nextBtn = isLast
+    ? `<button class="btn btn-success" onclick="Capsule.next()">
+        ${lang === 'fr' ? 'Terminer le module' : 'Complete module'}
+        ${svgCheck()}
+       </button>`
+    : `<button class="btn btn-primary" onclick="Capsule.next()">
+        ${lang === 'fr' ? 'Étape suivante' : 'Next step'}
+        ${svgArrowRight()}
+       </button>`;
+
+  const html = `
+    <div class="step-content">
+      <div class="step-header">
+        <span class="step-num-badge">${lang === 'fr' ? 'Étape' : 'Step'} ${index + 1}/${STEPS_DATA.length}</span>
+        <span class="step-tab-label">${data.tab}</span>
+      </div>
+      <h1 class="step-title">${data.title}</h1>
+      <p class="step-intro">${data.intro}</p>
+
+      <div class="capture-wrapper">
+        <div class="capture-label">${data.capLabel}</div>
+        <img class="capture-img" src="${step.capture}" alt="${data.capLabel}" loading="lazy">
+      </div>
+
+      <div class="fields-section">
+        <div class="fields-title">${data.fieldsTitle}</div>
+        ${fieldsHtml}
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">💡</div>
+        <div class="tip-text">${data.tip}</div>
+      </div>
+
+      <div class="step-nav">
+        <div class="step-nav-left">${prevBtn}</div>
+        <div class="step-nav-right">${nextBtn}</div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('capsuleMain').innerHTML = html;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   RENDU SIDEBAR
+────────────────────────────────────────────────────────────── */
+function renderSidebarSteps(currentIndex) {
+  const sidebar  = document.getElementById('capsuleSidebar');
+  const lang     = Lang.get();
+  const completed = Progress.getCompletedSteps(MODULE_ID);
+
+  let stepsHtml = `
+    <div class="sidebar-module-name" data-fr="Module 01 — Profil entreprise" data-en="Module 01 — Company Profile">
+      ${lang === 'fr' ? 'Module 01 — Profil entreprise' : 'Module 01 — Company Profile'}
+    </div>
+  `;
+
+  STEPS_DATA.forEach((step, i) => {
+    const data   = step[lang];
+    const isDone = completed.includes(i) || Progress.isModuleDone(MODULE_ID);
+    const isActive = i === currentIndex && !Progress.isModuleDone(MODULE_ID);
+
+    let stateClass = 'todo', indicatorClass = 'todo', indicatorContent = i + 1;
+    if (isDone) { stateClass = 'done'; indicatorClass = 'done'; indicatorContent = svgCheck(); }
+    else if (isActive) { stateClass = 'active'; indicatorClass = 'active'; indicatorContent = i + 1; }
+
+    stepsHtml += `
+      <div class="sidebar-step ${stateClass}" onclick="if(${isDone || isActive || i <= completed.length}) Capsule.goToStep(${i})">
+        <div class="step-indicator ${indicatorClass}">${indicatorContent}</div>
+        <div class="step-info">
+          <div class="step-name">${data.tab}</div>
+          <div class="step-sub">${data.fields.length} ${lang === 'fr' ? 'champs' : 'fields'}</div>
+        </div>
+      </div>
+    `;
+  });
+
+  stepsHtml += `
+    <div class="sidebar-progress">
+      <div class="sidebar-progress-label">
+        <span data-fr="Progression" data-en="Progress">${lang === 'fr' ? 'Progression' : 'Progress'}</span>
+        <span class="sidebar-progress-pct">0%</span>
+      </div>
+      <div class="progress-track" style="height:6px">
+        <div class="progress-fill" style="width:0%"></div>
+      </div>
+    </div>
+  `;
+
+  // Remplacer tout sauf le nœud progress (géré séparément)
+  sidebar.innerHTML = stepsHtml;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   INIT
+────────────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  // Vérifier accès
+  if (!Progress.isModuleUnlocked(MODULE_ID)) {
+    window.location.href = 'index.html';
+    return;
+  }
+
+  Capsule.registerRenderers(renderStepContent, renderSidebarSteps);
+  Capsule.init({ moduleId: MODULE_ID, totalSteps: STEPS_DATA.length });
+
+  // Re-render sur changement de langue
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(() => {
+        renderStepContent(Capsule.getCurrent());
+        renderSidebarSteps(Capsule.getCurrent());
+      }, 10);
+    });
+  });
+});
+</script>
+</body>
+</html>

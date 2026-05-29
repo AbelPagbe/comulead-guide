@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-fr="Guide utilisateur — Comulead" data-en="User Guide — Comulead">Guide utilisateur — Comulead</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  /* Hub-specific styles */
+  .hub-sections { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 40px 0 20px;
+  }
+  .section-divider-line { flex:1; height:1px; background: var(--gray-200); }
+  .section-divider-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    white-space: nowrap;
+  }
+  .hub-footer {
+    border-top: 1px solid var(--gray-200);
+    padding: 24px 32px;
+    text-align: center;
+  }
+  .hub-footer p {
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+  .hub-footer a { color: var(--violet); text-decoration: none; }
+  .hub-footer a:hover { text-decoration: underline; }
+  .reset-btn {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gray-400);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-main);
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: var(--transition);
+  }
+  .reset-btn:hover { color: var(--error); background: var(--error-pale); }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ────────────────────────────────────────────────── -->
+<header class="guide-header">
+  <a href="index.html" class="header-brand">
+    <div class="header-logo">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    <span class="header-brand-name">Comulead</span>
+    <span class="header-brand-sub" data-fr="Guide utilisateur" data-en="User Guide">Guide utilisateur</span>
+  </a>
+  <div class="header-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" data-lang="fr">FR</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+  </div>
+</header>
+
+<!-- ── HERO ──────────────────────────────────────────────────── -->
+<section class="hub-hero">
+  <div class="hub-hero-inner">
+    <div class="hub-badge">
+      <span class="hub-badge-dot"></span>
+      <span data-fr="Guide interactif" data-en="Interactive guide">Guide interactif</span>
+    </div>
+    <h1 class="hub-title">
+      <span data-fr="Bienvenue dans" data-en="Welcome to">Bienvenue dans</span><br>
+      <span data-fr="Comulead" data-en="Comulead">Comulead</span>
+    </h1>
+    <p class="hub-subtitle" data-fr="Suis les capsules dans l'ordre pour configurer ta plateforme et commencer à analyser tes données — ou accède directement au module dont tu as besoin." data-en="Follow the capsules in order to set up your platform and start analyzing your data — or jump directly to the module you need.">
+      Suis les capsules dans l'ordre pour configurer ta plateforme et commencer à analyser tes données — ou accède directement au module dont tu as besoin.
+    </p>
+  </div>
+</section>
+
+<!-- ── BARRE PROGRESSION GLOBALE ─────────────────────────────── -->
+<div class="hub-progress-bar-section">
+  <div class="hub-progress-inner">
+    <span class="hub-progress-label" data-fr="Ta progression" data-en="Your progress">Ta progression</span>
+    <div class="progress-track">
+      <div class="progress-fill" id="globalProgressFill" style="width:0%"></div>
+    </div>
+    <span class="hub-progress-pct" id="globalProgressPct">0%</span>
+  </div>
+</div>
+
+<!-- ── MODULES ────────────────────────────────────────────────── -->
+<div class="hub-sections">
+
+  <div class="section-divider">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-label" data-fr="Configuration du compte" data-en="Account setup">Configuration du compte</span>
+    <div class="section-divider-line"></div>
+  </div>
+
+  <div class="modules-grid" id="modulesGrid">
+    <!-- Générés par JS -->
+  </div>
+
+</div>
+
+<footer class="hub-footer">
+  <p>
+    <span data-fr="Une question ? Contacte-nous à" data-en="Need help? Reach us at">Une question ? Contacte-nous à</span>
+    <a href="mailto:support@comulead.com">support@comulead.com</a>
+    &nbsp;·&nbsp;
+    <button class="reset-btn" id="resetProgress" data-fr="Réinitialiser ma progression" data-en="Reset my progress">Réinitialiser ma progression</button>
+  </p>
+</footer>
+
+<script src="assets/core.js"></script>
+<script>
+/* ── DÉFINITION DES MODULES ───────────────────────────────────── */
+const MODULES = [
+  {
+    id: 'module-01',
+    file: 'module-01.html',
+    icon: '🏢',
+    num: '01',
+    totalSteps: 4,
+    fr: {
+      title: 'Profil de l\'entreprise',
+      desc: 'Configure les informations de ton entreprise : coordonnées, documents légaux et paramètres avancés.',
+    },
+    en: {
+      title: 'Company Profile',
+      desc: 'Set up your company information: contact details, legal documents, and advanced settings.',
+    }
+  },
+  {
+    id: 'module-02',
+    file: 'module-02.html',
+    icon: '👥',
+    num: '02',
+    totalSteps: 3,
+    fr: {
+      title: 'Membres de l\'équipe',
+      desc: 'Invite et gère les membres de ton équipe, assigne les rôles et les permissions.',
+    },
+    en: {
+      title: 'Team Members',
+      desc: 'Invite and manage your team members, assign roles and permissions.',
+    }
+  },
+  {
+    id: 'module-03',
+    file: 'module-03.html',
+    icon: '📁',
+    num: '03',
+    totalSteps: 3,
+    fr: {
+      title: 'Team Spaces',
+      desc: 'Crée des espaces de travail collaboratifs pour organiser tes projets et analyses.',
+    },
+    en: {
+      title: 'Team Spaces',
+      desc: 'Create collaborative workspaces to organize your projects and analyses.',
+    }
+  },
+  {
+    id: 'module-04',
+    file: 'module-04.html',
+    icon: '📊',
+    num: '04',
+    totalSteps: 5,
+    fr: {
+      title: 'Analyser mes ventes',
+      desc: 'Importe tes données de ventes et obtiens des analyses et recommandations en moins de 5 minutes.',
+    },
+    en: {
+      title: 'Analyze My Sales',
+      desc: 'Import your sales data and get analyses and recommendations in less than 5 minutes.',
+    }
+  },
+  {
+    id: 'module-05',
+    file: 'module-05.html',
+    icon: '📤',
+    num: '05',
+    totalSteps: 2,
+    fr: {
+      title: 'Export & Partage',
+      desc: 'Exporte tes rapports en PDF ou Excel et partage-les avec ton équipe ou des partenaires externes.',
+    },
+    en: {
+      title: 'Export & Share',
+      desc: 'Export your reports to PDF or Excel and share them with your team or external partners.',
+    }
+  },
+];
+
+const TOTAL_MODULES = MODULES.length;
+
+/* ── RENDU GRILLE ─────────────────────────────────────────────── */
+function renderHub() {
+  const grid = document.getElementById('modulesGrid');
+  const lang = Lang.get();
+  let html = '';
+
+  MODULES.forEach((mod) => {
+    const done      = Progress.isModuleDone(mod.id);
+    const unlocked  = Progress.isModuleUnlocked(mod.id);
+    const completed = Progress.getCompletedSteps(mod.id);
+    const content   = mod[lang];
+
+    let state, badgeHtml, ctaHtml, cardClass;
+
+    if (done) {
+      state = 'done';
+      cardClass = 'module-card done';
+      badgeHtml = `<span class="card-badge badge-done">${lang === 'fr' ? '✓ Complété' : '✓ Done'}</span>`;
+      ctaHtml   = `<div class="card-cta">
+        ${lang === 'fr' ? 'Revoir' : 'Review'}
+        ${svgArrowRight()}
+      </div>`;
+    } else if (unlocked) {
+      const isCurrent = !done && unlocked;
+      cardClass = `module-card${isCurrent ? ' current' : ''}`;
+      badgeHtml = `<span class="card-badge badge-current">${lang === 'fr' ? '▶ Suivant' : '▶ Next'}</span>`;
+      ctaHtml   = `<div class="card-cta">
+        ${lang === 'fr' ? 'Commencer' : 'Start'}
+        ${svgArrowRight()}
+      </div>`;
+    } else {
+      cardClass = 'module-card locked';
+      badgeHtml = `<span class="card-badge badge-locked">${svgLock()} ${lang === 'fr' ? 'Verrouillé' : 'Locked'}</span>`;
+      ctaHtml   = '';
+    }
+
+    // Mini dots progress
+    let dotsHtml = '<div class="card-steps">';
+    for (let i = 0; i < mod.totalSteps; i++) {
+      const isDone = completed.includes(i) || done;
+      const isCurr = !done && i === completed.length;
+      dotsHtml += `<div class="step-dot ${isDone ? 'done' : isCurr && unlocked ? 'curr' : ''}"></div>`;
+    }
+    dotsHtml += '</div>';
+
+    const clickable = done || unlocked;
+
+    html += `
+      <div class="${cardClass}" role="article"
+           ${clickable ? `onclick="window.location='${mod.file}'"` : ''}
+           tabindex="${clickable ? 0 : -1}"
+           onkeydown="if(event.key==='Enter' && ${clickable}) window.location='${mod.file}'">
+        <div class="card-header">
+          <div class="card-icon">${mod.icon}</div>
+          ${badgeHtml}
+        </div>
+        <div>
+          <div class="card-num">MODULE ${mod.num}</div>
+          <div class="card-title">${content.title}</div>
+        </div>
+        <div class="card-desc">${content.desc}</div>
+        ${dotsHtml}
+        ${ctaHtml}
+      </div>
+    `;
+  });
+
+  grid.innerHTML = html;
+
+  // Progression globale
+  const pct = Progress.getGlobalPercent(TOTAL_MODULES);
+  document.getElementById('globalProgressFill').style.width = pct + '%';
+  document.getElementById('globalProgressPct').textContent  = pct + '%';
+}
+
+/* ── RESET ────────────────────────────────────────────────────── */
+document.getElementById('resetProgress').addEventListener('click', () => {
+  const lang = Lang.get();
+  const msg = lang === 'fr'
+    ? 'Réinitialiser toute ta progression ? Cette action est irréversible.'
+    : 'Reset all your progress? This action cannot be undone.';
+  if (confirm(msg)) {
+    Progress.reset();
+    renderHub();
+  }
+});
+
+/* ── INIT ─────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  renderHub();
+  // Re-render quand langue change
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => setTimeout(renderHub, 10));
+  });
+});
+</script>
+</body>
+</html>
