@@ -3,12 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-fr="Module 01 — Profil de l'entreprise" data-en="Module 01 — Company Profile">Module 01 — Profil de l'entreprise</title>
+<title>Module 01 — Profil de l'entreprise</title>
 <link rel="stylesheet" href="assets/style.css">
+<style>
+/* ── COMPOSANTS ANIMÉS INLINE ─────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap');
+.anim-wrap { margin-bottom: 32px; }
+.anim-badge { display:inline-flex; align-items:center; gap:6px; font-size:10px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:#4B33A8; background:#EDE9F8; padding:3px 10px; border-radius:20px; margin-bottom:10px; }
+.anim-badge-dot { width:5px; height:5px; border-radius:50%; background:#0D9488; animation:abd 2s ease-in-out infinite; }
+@keyframes abd{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
+.anim-stepind { font-size:11px; color:#9CA3AF; margin-bottom:6px; font-weight:500; font-family:'Sora',sans-serif; }
+.anim-pbar { height:3px; background:#E5E7EB; border-radius:2px; margin-bottom:12px; overflow:hidden; }
+.anim-pfill { height:100%; background:linear-gradient(90deg,#4B33A8,#2653D4); border-radius:2px; transition:width .35s; }
+.mshell { background:#fff; border-radius:12px; border:1px solid #E5E7EB; overflow:hidden; position:relative; box-shadow:0 4px 16px rgba(12,30,62,.08); }
+.mheader { padding:16px 20px 0; border-bottom:1px solid #E5E7EB; }
+.mtitle-row { font-size:14px; font-weight:700; color:#0C1E3E; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; font-family:'Sora',sans-serif; }
+.mclose { font-size:14px; color:#9CA3AF; }
+.mtabs { display:flex; overflow-x:auto; }
+.mtab { font-size:10px; font-weight:500; padding:8px 10px; color:#9CA3AF; border-bottom:2px solid transparent; display:flex; align-items:center; gap:4px; white-space:nowrap; font-family:'Sora',sans-serif; }
+.mtab.active { color:#2653D4; border-bottom-color:#2653D4; font-weight:700; }
+.mbody { padding:14px 20px 12px; }
+.sechdr { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.sectitle { font-size:12px; font-weight:700; color:#0C1E3E; font-family:'Sora',sans-serif; }
+.secbadge-g { font-size:10px; font-weight:700; color:#0D9488; background:#E6F4F3; padding:2px 8px; border-radius:20px; }
+.secbadge-o { font-size:10px; font-weight:700; color:#D97706; background:#FEF3C7; padding:2px 8px; border-radius:20px; }
+.fgrid { display:grid; grid-template-columns:1fr 1fr; gap:9px 12px; }
+.ffield { display:flex; flex-direction:column; gap:3px; }
+.ffield.full { grid-column:1/-1; }
+.flabel { font-size:10px; font-weight:500; color:#6B7280; font-family:'Sora',sans-serif; }
+.finput { border:1.5px solid #E5E7EB; border-radius:6px; padding:6px 10px; font-size:11px; font-family:'Sora',sans-serif; font-weight:400; color:#374151; background:#fff; transition:border-color .2s,box-shadow .2s; outline:none; width:100%; box-sizing:border-box; }
+.finput.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.12); background:#FDFCFF; }
+.fselect { border:1.5px solid #E5E7EB; border-radius:6px; padding:6px 10px; font-size:11px; font-family:'Sora',sans-serif; font-weight:400; color:#374151; background:#fff; transition:border-color .2s,box-shadow .2s; display:flex; align-items:center; gap:5px; }
+.fselect.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.12); background:#FDFCFF; }
+.telgrp { display:flex; gap:4px; }
+.telcode { border:1.5px solid #E5E7EB; border-radius:6px; padding:6px 8px; font-size:10px; font-family:'Sora',sans-serif; color:#9CA3AF; background:#F9FAFB; min-width:64px; text-align:center; transition:border-color .2s,box-shadow .2s; }
+.telnum { flex:1; border:1.5px solid #E5E7EB; border-radius:6px; padding:6px 8px; font-size:11px; font-family:'Sora',sans-serif; font-weight:400; color:#374151; background:#fff; transition:border-color .2s,box-shadow .2s; box-sizing:border-box; }
+.telgrp.hl .telcode,.telgrp.hl .telnum { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.12); }
+.logofield { border:1.5px solid #E5E7EB; border-radius:6px; padding:6px 10px; font-size:11px; font-family:'Sora',sans-serif; color:#D1D5DB; background:#fff; display:flex; justify-content:space-between; align-items:center; transition:border-color .2s,box-shadow .2s; }
+.logofield.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.12); }
+.mfooter { padding:10px 20px; border-top:1px solid #F3F4F6; display:flex; justify-content:space-between; }
+.bcancel { font-size:11px; font-weight:600; color:#374151; background:#fff; border:1.5px solid #E5E7EB; padding:5px 14px; border-radius:6px; cursor:pointer; font-family:'Sora',sans-serif; }
+.bsave { font-size:11px; font-weight:600; color:#fff; background:#2653D4; border:none; padding:5px 14px; border-radius:6px; cursor:pointer; font-family:'Sora',sans-serif; }
+.acursor { position:absolute; width:15px; height:15px; pointer-events:none; z-index:99; transition:left .4s cubic-bezier(.4,0,.2,1),top .4s cubic-bezier(.4,0,.2,1); filter:drop-shadow(0 1px 2px rgba(0,0,0,.2)); }
+.attip { position:absolute; background:#0C1E3E; color:#fff; font-size:10px; font-family:'Sora',sans-serif; font-weight:500; padding:4px 9px; border-radius:6px; pointer-events:none; z-index:100; opacity:0; transition:opacity .2s; max-width:190px; line-height:1.5; }
+.attip::after { content:''; position:absolute; bottom:-5px; left:10px; border:5px solid transparent; border-bottom:none; border-top-color:#0C1E3E; }
+/* Documents spécifique */
+.doc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px; }
+.doc-btn { border:1.5px solid #E5E7EB; border-radius:8px; padding:10px 8px; font-size:10px; font-family:'Sora',sans-serif; font-weight:500; color:#374151; background:#fff; cursor:pointer; display:flex; align-items:center; gap:6px; transition:border-color .2s,box-shadow .2s,background .2s; }
+.doc-btn.selected { border-color:#2653D4; background:#EEF3FD; color:#2653D4; }
+.doc-btn.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.12); background:#FDFCFF; }
+.doc-btn.hl.selected { border-color:#4B33A8; background:#EDE9F8; }
+.doc-icon { font-size:14px; }
+.doc-upload-row { display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+.doc-center-label { font-size:10px; font-weight:600; color:#6B7280; text-align:center; margin-bottom:8px; font-family:'Sora',sans-serif; }
+/* Avancées spécifique */
+.adv-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px 12px; }
+.adv-field { display:flex; flex-direction:column; gap:3px; }
+.adv-field.full { grid-column:1/-1; }
+.adv-textarea { border:1.5px solid #E5E7EB; border-radius:6px; padding:6px 10px; font-size:11px; font-family:'Sora',sans-serif; font-weight:400; color:#374151; background:#fff; transition:border-color .2s,box-shadow .2s; resize:none; height:52px; width:100%; box-sizing:border-box; }
+.adv-textarea.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.12); background:#FDFCFF; }
+.adv-spinner { border:1.5px solid #E5E7EB; border-radius:6px; padding:6px 10px; font-size:11px; font-family:'Sora',sans-serif; color:#374151; background:#fff; display:flex; justify-content:space-between; align-items:center; transition:border-color .2s,box-shadow .2s; }
+.adv-spinner.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.12); background:#FDFCFF; }
+.spin-arrows { color:#9CA3AF; font-size:10px; }
+</style>
 </head>
 <body>
 
-<!-- ── HEADER ────────────────────────────────────────────────── -->
 <header class="guide-header">
   <a href="index.html" class="header-brand">
     <div class="header-logo">
@@ -29,360 +89,599 @@
   </div>
 </header>
 
-<!-- ── LAYOUT CAPSULE ────────────────────────────────────────── -->
 <div class="capsule-layout">
-
-  <!-- Sidebar -->
-  <aside class="capsule-sidebar" id="capsuleSidebar">
-    <div class="sidebar-module-name" data-fr="Module 01 — Profil entreprise" data-en="Module 01 — Company Profile">
-      Module 01 — Profil entreprise
-    </div>
-    <!-- Steps injectés par JS -->
-    <div class="sidebar-progress">
-      <div class="sidebar-progress-label">
-        <span data-fr="Progression" data-en="Progress">Progression</span>
-        <span class="sidebar-progress-pct">0%</span>
-      </div>
-      <div class="progress-track" style="height:6px">
-        <div class="progress-fill" style="width:0%"></div>
-      </div>
-    </div>
-  </aside>
-
-  <!-- Contenu principal -->
-  <main class="capsule-main" id="capsuleMain">
-    <!-- Injecté par JS -->
-  </main>
-
+  <aside class="capsule-sidebar" id="capsuleSidebar"></aside>
+  <main class="capsule-main" id="capsuleMain"></main>
 </div>
 
 <script src="assets/core.js"></script>
 <script>
-/* ─────────────────────────────────────────────────────────────
-   MODULE 01 — DONNÉES CONTENU BILINGUE
-   Chaque step correspond à un onglet de la modale "Compléter
-   le profil de l'entreprise"
-────────────────────────────────────────────────────────────── */
+const MODULE_ID = 'module-01';
 
-const MODULE_ID  = 'module-01';
+/* ══════════════════════════════════════════════════════════════
+   CONTENU BILINGUE — 4 ÉTAPES
+══════════════════════════════════════════════════════════════ */
 const STEPS_DATA = [
-  {
-    /* ── ÉTAPE 1 : Informations de base ─────────────────── */
-    capture: 'assets/captures/cap-01-base.png',
-    fr: {
-      tab:   'Informations de base',
-      title: 'Les informations de base de ton entreprise',
-      intro: 'Le premier onglet contient les informations essentielles d\'identification. Comulead a besoin de ces données pour personnaliser tes analyses et tes rapports.',
-      capLabel: 'Onglet 1 — Informations de base',
-      fieldsTitle: 'Champs à compléter',
-      fields: [
-        { name: 'Nom de l\'entreprise', hint: 'La raison sociale officielle de ton entreprise.', required: true },
-        { name: 'Email', hint: 'L\'adresse courriel principale pour les communications et notifications.', required: true },
-        { name: 'Pays', hint: 'Sélectionne ton pays dans la liste déroulante. Détermine la devise et le cadre réglementaire.', required: true },
-        { name: 'Code postal', hint: 'Ton code postal ou ZIP.', required: true },
-        { name: 'Adresse', hint: 'L\'adresse physique de ton siège social.', required: false },
-        { name: 'Ville', hint: 'La ville où est domiciliée ton entreprise.', required: false },
-        { name: 'Téléphone', hint: 'Commence par sélectionner le code de composition (Dial Code) du bon pays, puis entre ton numéro.', required: false },
-        { name: 'Site web', hint: 'Ton site web d\'entreprise (ex: www.monentreprise.com).', required: false },
-        { name: 'Logo', hint: 'Téléverse ton logo — il apparaîtra sur tes rapports exportés. Format : PNG ou SVG recommandé.', required: false },
-      ],
-      tip: '<strong>Conseil :</strong> Ton logo et ton nom d\'entreprise apparaîtront en en-tête de tous tes rapports PDF exportés. Prends le temps de bien les configurer maintenant.',
-      next: 'Informations détaillées →',
-    },
-    en: {
-      tab:   'Basic Information',
-      title: 'Your company\'s basic information',
-      intro: 'The first tab contains essential identification details. Comulead uses this information to personalize your analyses and reports.',
-      capLabel: 'Tab 1 — Basic Information',
-      fieldsTitle: 'Fields to fill in',
-      fields: [
-        { name: 'Company name', hint: 'The official legal name of your company.', required: true },
-        { name: 'Email', hint: 'The main email address for communications and notifications.', required: true },
-        { name: 'Country', hint: 'Select your country from the dropdown. This determines your currency and regulatory framework.', required: true },
-        { name: 'Postal code', hint: 'Your postal or ZIP code.', required: true },
-        { name: 'Address', hint: 'The physical address of your head office.', required: false },
-        { name: 'City', hint: 'The city where your company is registered.', required: false },
-        { name: 'Phone', hint: 'First select the correct Dial Code for your country, then enter your number.', required: false },
-        { name: 'Website', hint: 'Your company website (e.g., www.mycompany.com).', required: false },
-        { name: 'Logo', hint: 'Upload your logo — it will appear on your exported reports. PNG or SVG format recommended.', required: false },
-      ],
-      tip: '<strong>Tip:</strong> Your logo and company name will appear in the header of all exported PDF reports. Take time to configure these properly now.',
-      next: 'Detailed Information →',
-    }
-  },
 
-  {
-    /* ── ÉTAPE 2 : Informations détaillées ──────────────── */
-    capture: 'assets/captures/cap-01-detail.png',
-    fr: {
-      tab:   'Informations détaillées',
-      title: 'Le profil détaillé de ton entreprise',
-      intro: 'Ces informations permettent à Cortex AI de mieux comprendre ton contexte et de calibrer ses recommandations à la réalité de ton entreprise.',
-      capLabel: 'Onglet 2 — Informations détaillées',
-      fieldsTitle: 'Champs à compléter',
-      fields: [
-        { name: 'Slogan', hint: 'Ton slogan ou tagline d\'entreprise (ex: « L\'innovation au service de la croissance »).', required: false },
-        { name: 'Forme juridique', hint: 'Sélectionne le statut légal de ton entreprise (SA, SARL, Inc., etc.).', required: false },
-        { name: 'Année de création', hint: 'L\'année de fondation de ton entreprise. Utilisé pour calculer l\'ancienneté dans les analyses comparatives.', required: false },
-        { name: 'Nombre d\'employés', hint: 'La taille actuelle de ton équipe. Comulead adapte ses benchmarks selon cette donnée.', required: false },
-        { name: 'Description de l\'activité', hint: 'Décris ton activité principale en 2-3 phrases. Cette description aide Cortex AI à contextualiser ses analyses.', required: false },
-      ],
-      tip: '<strong>Important :</strong> Plus ta description d\'activité est précise, plus les recommandations de Cortex AI seront pertinentes pour ton secteur.',
-      next: 'Documents →',
-    },
-    en: {
-      tab:   'Detailed Information',
-      title: 'Your company\'s detailed profile',
-      intro: 'This information helps Cortex AI better understand your context and calibrate its recommendations to your business reality.',
-      capLabel: 'Tab 2 — Detailed Information',
-      fieldsTitle: 'Fields to fill in',
-      fields: [
-        { name: 'Tagline', hint: 'Your company tagline or slogan (e.g., "Innovation driving growth").', required: false },
-        { name: 'Legal form', hint: 'Select your company\'s legal status (Inc., LLC, etc.).', required: false },
-        { name: 'Year founded', hint: 'The year your company was founded. Used to calculate seniority in comparative analyses.', required: false },
-        { name: 'Number of employees', hint: 'Your current team size. Comulead adjusts its benchmarks based on this data.', required: false },
-        { name: 'Business description', hint: 'Describe your main business in 2-3 sentences. This helps Cortex AI contextualize its analyses.', required: false },
-      ],
-      tip: '<strong>Important:</strong> The more precise your business description, the more relevant Cortex AI\'s recommendations will be for your sector.',
-      next: 'Documents →',
-    }
+/* ── ÉTAPE 1 : Informations de base ──────────────────────── */
+{
+  fr:{
+    tab:'Informations de base', tabIcon:'🏢',
+    title:'Les informations de base de ton entreprise',
+    intro:'Le premier onglet contient les informations essentielles d\'identification. Comulead utilise ces données pour personnaliser tes analyses et tes rapports.',
+    fieldsTitle:'Champs à compléter',
+    tip:'<strong>Conseil :</strong> Ton logo et ton nom d\'entreprise apparaîtront en en-tête de tous tes rapports PDF exportés. Prends le temps de bien les configurer.',
+    animStepLabel:'Étape en cours',
+    animBadge:'Aperçu interactif',
+    cancel:'Annuler', save:'Enregistrer',
+    sectionTitle:'Informations de base', sectionBadge:'De base : 100%',
+    tabs:['🏢 Informations de base','Informations détaillées','Documents','Informations avancées'],
+    modalTitle:'Compléter le profil de l\'entreprise',
+    animSteps:[
+      {id:'i-company', label:'Nom de l\'entreprise', tip:'La raison sociale officielle de ton entreprise.'},
+      {id:'i-email',   label:'Email',                tip:'Adresse courriel pour communications et notifications.'},
+      {id:'i-pays',    label:'Pays',                 tip:'Détermine la devise et le cadre réglementaire.'},
+      {id:'i-postal',  label:'Code postal',          tip:'Ton code postal ou ZIP.'},
+      {id:'i-adresse', label:'Adresse',              tip:'Adresse physique de ton siège social.'},
+      {id:'i-ville',   label:'Ville',                tip:'Ville où est domiciliée ton entreprise.'},
+      {id:'i-tel',     label:'Téléphone',            tip:'Sélectionne d\'abord le Dial Code, puis entre ton numéro.'},
+      {id:'i-web',     label:'Site web',             tip:'Ton site d\'entreprise (ex: www.monentreprise.com).'},
+      {id:'i-logo',    label:'Logo',                 tip:'Téléverse ton logo — apparaîtra sur tes rapports PDF.'},
+    ],
+    fields:[
+      {name:'Nom de l\'entreprise', hint:'La raison sociale officielle de ton entreprise.',      required:true},
+      {name:'Email',                hint:'Adresse courriel principale pour les notifications.',   required:true},
+      {name:'Pays',                 hint:'Sélectionne ton pays — détermine la devise et le cadre légal.', required:true},
+      {name:'Code postal',          hint:'Ton code postal ou ZIP.',                              required:true},
+      {name:'Adresse',              hint:'Adresse physique de ton siège social.',                required:false},
+      {name:'Ville',                hint:'Ville où est domiciliée ton entreprise.',              required:false},
+      {name:'Téléphone',            hint:'Sélectionne d\'abord le Dial Code du bon pays.',      required:false},
+      {name:'Site web',             hint:'Ton site d\'entreprise (ex: www.monentreprise.com).',  required:false},
+      {name:'Logo',                 hint:'PNG ou SVG recommandé — apparaîtra sur tes rapports.', required:false},
+    ]
   },
-
-  {
-    /* ── ÉTAPE 3 : Documents ─────────────────────────────── */
-    capture: 'assets/captures/cap-01-docs.png',
-    fr: {
-      tab:   'Documents',
-      title: 'Les documents officiels de l\'entreprise',
-      intro: 'Cette section te permet de téléverser les documents légaux de ton entreprise. Ils sont requis pour certaines fonctionnalités avancées de la plateforme.',
-      capLabel: 'Onglet 3 — Documents',
-      fieldsTitle: 'Types de documents acceptés',
-      fields: [
-        { name: 'Certificat d\'immatriculation', hint: 'Le document officiel d\'enregistrement de ton entreprise.', required: false },
-        { name: 'Registre du commerce', hint: 'Extrait de registre de commerce prouvant l\'existence légale de l\'entreprise.', required: false },
-        { name: 'Certificat d\'identification fiscale', hint: 'Ton numéro et certificat d\'identification fiscale (NIF/TIN).', required: false },
-        { name: 'Statuts de l\'entreprise', hint: 'Les statuts constitutifs de ta société.', required: false },
-        { name: 'Certificat d\'immatriculation TVA', hint: 'Si applicable — ton numéro de TVA/TPS.', required: false },
-        { name: 'Pièce d\'identité du dirigeant', hint: 'Carte d\'identité ou passeport du représentant légal.', required: false },
-      ],
-      tip: '<strong>Note :</strong> Clique sur le type de document souhaité pour le sélectionner (fond bleu = sélectionné), puis téléverse le fichier correspondant. Taille maximale : 1 Mo par document.',
-      next: 'Informations avancées →',
-    },
-    en: {
-      tab:   'Documents',
-      title: 'Your company\'s official documents',
-      intro: 'This section allows you to upload your company\'s legal documents. They are required for certain advanced platform features.',
-      capLabel: 'Tab 3 — Documents',
-      fieldsTitle: 'Accepted document types',
-      fields: [
-        { name: 'Certificate of incorporation', hint: 'The official registration document for your company.', required: false },
-        { name: 'Trade register', hint: 'Trade register extract proving the legal existence of the company.', required: false },
-        { name: 'Tax identification certificate', hint: 'Your tax identification number and certificate (TIN/NIF).', required: false },
-        { name: 'Company bylaws', hint: 'The articles of incorporation of your company.', required: false },
-        { name: 'VAT registration certificate', hint: 'If applicable — your VAT/GST number.', required: false },
-        { name: 'Director\'s ID', hint: 'Identity card or passport of the legal representative.', required: false },
-      ],
-      tip: '<strong>Note:</strong> Click on the desired document type to select it (blue background = selected), then upload the corresponding file. Maximum size: 1 MB per document.',
-      next: 'Advanced Settings →',
-    }
+  en:{
+    tab:'Basic Information', tabIcon:'🏢',
+    title:'Your company\'s basic information',
+    intro:'The first tab contains essential identification details. Comulead uses this information to personalize your analyses and reports.',
+    fieldsTitle:'Fields to fill in',
+    tip:'<strong>Tip:</strong> Your logo and company name will appear in the header of all exported PDF reports. Take time to configure these properly.',
+    animStepLabel:'Current step',
+    animBadge:'Interactive preview',
+    cancel:'Cancel', save:'Save',
+    sectionTitle:'Basic information', sectionBadge:'Basic: 100%',
+    tabs:['🏢 Basic information','Detailed information','Documents','Advanced settings'],
+    modalTitle:'Complete company profile',
+    animSteps:[
+      {id:'i-company', label:'Company name', tip:'The official legal name of your company.'},
+      {id:'i-email',   label:'Email',        tip:'Main email for communications and notifications.'},
+      {id:'i-pays',    label:'Country',      tip:'Determines your currency and regulatory framework.'},
+      {id:'i-postal',  label:'Postal code',  tip:'Your postal or ZIP code.'},
+      {id:'i-adresse', label:'Address',      tip:'Physical address of your head office.'},
+      {id:'i-ville',   label:'City',         tip:'City where your company is registered.'},
+      {id:'i-tel',     label:'Phone',        tip:'First select the Dial Code, then enter your number.'},
+      {id:'i-web',     label:'Website',      tip:'Your company website (e.g., www.mycompany.com).'},
+      {id:'i-logo',    label:'Logo',         tip:'Upload your logo — it will appear on exported PDF reports.'},
+    ],
+    fields:[
+      {name:'Company name', hint:'The official legal name of your company.',            required:true},
+      {name:'Email',        hint:'Main email address for communications.',               required:true},
+      {name:'Country',      hint:'Select your country — determines currency and legal framework.', required:true},
+      {name:'Postal code',  hint:'Your postal or ZIP code.',                            required:true},
+      {name:'Address',      hint:'Physical address of your head office.',               required:false},
+      {name:'City',         hint:'City where your company is registered.',              required:false},
+      {name:'Phone',        hint:'First select the correct Dial Code for your country.',required:false},
+      {name:'Website',      hint:'Your company website (e.g., www.mycompany.com).',     required:false},
+      {name:'Logo',         hint:'PNG or SVG recommended — will appear on your reports.',required:false},
+    ]
   },
+  animId:'anim-step1',
+  buildAnim: function(lang){ return buildAnimBase(lang, this.animId); }
+},
 
-  {
-    /* ── ÉTAPE 4 : Informations avancées ─────────────────── */
-    capture: 'assets/captures/cap-01-avancees.png',
-    fr: {
-      tab:   'Informations avancées',
-      title: 'Le contexte stratégique de ton entreprise',
-      intro: 'Ces données sont au cœur de Cortex AI. Elles permettent à la plateforme de calibrer ses analyses comparatives et de produire des recommandations vraiment adaptées à ton marché.',
-      capLabel: 'Onglet 4 — Informations avancées',
-      fieldsTitle: 'Champs à compléter',
-      fields: [
-        { name: 'Secteurs', hint: 'Sélectionne ton ou tes secteurs d\'activité principaux. Tu peux choisir plusieurs secteurs.', required: true },
-        { name: 'Précisez si autre', hint: 'Si ton secteur n\'est pas dans la liste, décris-le ici.', required: false },
-        { name: 'Types de clients', hint: 'Sélectionne ton type de clientèle principale (B2B Entreprises, B2C Particuliers, B2G Gouvernement, etc.).', required: false },
-        { name: 'Clients mensuels', hint: 'Nombre moyen de clients actifs par mois. Donnée clé pour les analyses de tendances.', required: false },
-        { name: 'Chiffre d\'affaires mensuel', hint: 'Ton chiffre d\'affaires mensuel moyen (en milliers). Utilisé pour les benchmarks sectoriels.', required: false },
-        { name: 'Zone géographique', hint: 'La portée géographique de ton marché (Local, Régional, National, International).', required: false },
-        { name: 'Concurrents principaux', hint: 'Liste tes 2-3 concurrents directs, séparés par des virgules. Permet d\'enrichir les analyses comparatives.', required: false },
-        { name: 'Produits/services principaux', hint: 'Décris tes 2-3 offres principales. Cortex AI utilisera cette donnée pour contextualiser les analyses de ventes.', required: false },
-        { name: 'Défis actuels', hint: 'Quels sont tes défis opérationnels ou commerciaux du moment ? Influence la priorisation des recommandations.', required: false },
-        { name: 'Objectifs à court terme', hint: 'Tes objectifs pour les 3-6 prochains mois. Permet à Cortex AI d\'aligner ses recommandations sur tes priorités.', required: false },
-      ],
-      tip: '<strong>Ces données sont déterminantes :</strong> Cortex AI utilise ton secteur, ta zone géographique et tes objectifs pour calibrer chaque analyse et recommandation. Plus tu complètes cette section, plus les insights seront précis.',
-      next: 'Terminer',
-    },
-    en: {
-      tab:   'Advanced Settings',
-      title: 'Your company\'s strategic context',
-      intro: 'This data is at the core of Cortex AI. It allows the platform to calibrate its comparative analyses and produce recommendations truly tailored to your market.',
-      capLabel: 'Tab 4 — Advanced Settings',
-      fieldsTitle: 'Fields to fill in',
-      fields: [
-        { name: 'Sectors', hint: 'Select your main business sector(s). You can choose multiple sectors.', required: true },
-        { name: 'Specify if other', hint: 'If your sector is not in the list, describe it here.', required: false },
-        { name: 'Client types', hint: 'Select your primary customer type (B2B Companies, B2C Consumers, B2G Government, etc.).', required: false },
-        { name: 'Monthly clients', hint: 'Average number of active clients per month. Key data point for trend analyses.', required: false },
-        { name: 'Monthly revenue', hint: 'Your average monthly revenue (in thousands). Used for sector benchmarks.', required: false },
-        { name: 'Geographic area', hint: 'The geographic reach of your market (Local, Regional, National, International).', required: false },
-        { name: 'Main competitors', hint: 'List your 2-3 direct competitors, separated by commas. Enriches comparative analyses.', required: false },
-        { name: 'Main products/services', hint: 'Describe your 2-3 main offerings. Cortex AI uses this to contextualize sales analyses.', required: false },
-        { name: 'Current challenges', hint: 'What are your current operational or business challenges? Influences the prioritization of recommendations.', required: false },
-        { name: 'Short-term goals', hint: 'Your goals for the next 3-6 months. Allows Cortex AI to align recommendations with your priorities.', required: false },
-      ],
-      tip: '<strong>This data is critical:</strong> Cortex AI uses your sector, geographic area and goals to calibrate every analysis and recommendation. The more you complete this section, the more precise the insights will be.',
-      next: 'Finish',
-    }
+/* ── ÉTAPE 2 : Informations détaillées ───────────────────── */
+{
+  fr:{
+    tab:'Informations détaillées', tabIcon:'📋',
+    title:'Le profil détaillé de ton entreprise',
+    intro:'Ces informations permettent à Cortex AI de mieux comprendre ton contexte et de calibrer ses recommandations à la réalité de ton entreprise.',
+    fieldsTitle:'Champs à compléter',
+    tip:'<strong>Important :</strong> Plus ta description d\'activité est précise, plus les recommandations de Cortex AI seront pertinentes pour ton secteur.',
+    animStepLabel:'Étape en cours',
+    animBadge:'Aperçu interactif',
+    cancel:'Annuler', save:'Enregistrer',
+    sectionTitle:'Informations détaillées', sectionBadge:'Entreprise : 100%',
+    tabs:['🏢 Informations de base','Informations détaillées','Documents','Informations avancées'],
+    modalTitle:'Compléter le profil de l\'entreprise',
+    animSteps:[
+      {id:'d-slogan',  label:'Slogan',               tip:'Ton tagline ou slogan d\'entreprise.'},
+      {id:'d-forme',   label:'Forme juridique',       tip:'SA, SARL, Inc., etc.'},
+      {id:'d-annee',   label:'Année de création',     tip:'Utilisée pour les analyses comparatives.'},
+      {id:'d-employes',label:'Nombre d\'employés',    tip:'Comulead adapte ses benchmarks selon cette donnée.'},
+      {id:'d-desc',    label:'Description de l\'activité', tip:'2-3 phrases sur ton activité principale.'},
+    ],
+    fields:[
+      {name:'Slogan',                hint:'Ton slogan ou tagline d\'entreprise.',                          required:false},
+      {name:'Forme juridique',       hint:'Statut légal de ton entreprise (SA, SARL, Inc., etc.).',       required:false},
+      {name:'Année de création',     hint:'Utilisée pour calculer l\'ancienneté dans les analyses.',      required:false},
+      {name:'Nombre d\'employés',    hint:'Comulead adapte ses benchmarks selon la taille de l\'équipe.', required:false},
+      {name:'Description de l\'activité', hint:'Décris ton activité en 2-3 phrases. Aide Cortex AI à contextualiser.', required:false},
+    ]
+  },
+  en:{
+    tab:'Detailed Information', tabIcon:'📋',
+    title:'Your company\'s detailed profile',
+    intro:'This information helps Cortex AI better understand your context and calibrate its recommendations to your business reality.',
+    fieldsTitle:'Fields to fill in',
+    tip:'<strong>Important:</strong> The more precise your business description, the more relevant Cortex AI\'s recommendations will be for your sector.',
+    animStepLabel:'Current step',
+    animBadge:'Interactive preview',
+    cancel:'Cancel', save:'Save',
+    sectionTitle:'Detailed information', sectionBadge:'Company: 100%',
+    tabs:['🏢 Basic information','Detailed information','Documents','Advanced settings'],
+    modalTitle:'Complete company profile',
+    animSteps:[
+      {id:'d-slogan',  label:'Tagline',           tip:'Your company tagline or slogan.'},
+      {id:'d-forme',   label:'Legal form',         tip:'Inc., LLC, SA, etc.'},
+      {id:'d-annee',   label:'Year founded',       tip:'Used for comparative analyses.'},
+      {id:'d-employes',label:'Number of employees',tip:'Comulead adjusts benchmarks based on team size.'},
+      {id:'d-desc',    label:'Business description',tip:'2-3 sentences about your main activity.'},
+    ],
+    fields:[
+      {name:'Tagline',             hint:'Your company tagline or slogan.',                              required:false},
+      {name:'Legal form',          hint:'Legal status of your company (Inc., LLC, SA, etc.).',         required:false},
+      {name:'Year founded',        hint:'Used to calculate seniority in comparative analyses.',         required:false},
+      {name:'Number of employees', hint:'Comulead adjusts its benchmarks based on team size.',         required:false},
+      {name:'Business description',hint:'Describe your activity in 2-3 sentences. Helps Cortex AI contextualize.', required:false},
+    ]
+  },
+  animId:'anim-step2',
+  buildAnim: function(lang){ return buildAnimDetail(lang, this.animId); }
+},
+
+/* ── ÉTAPE 3 : Documents ─────────────────────────────────── */
+{
+  fr:{
+    tab:'Documents', tabIcon:'📄',
+    title:'Les documents officiels de l\'entreprise',
+    intro:'Téléverse les documents légaux de ton entreprise. Clique sur le type de document souhaité pour le sélectionner (fond bleu), puis téléverse le fichier correspondant.',
+    fieldsTitle:'Types de documents acceptés',
+    tip:'<strong>Note :</strong> Taille maximale 1 Mo par document. Le curseur illustre la séquence : sélectionner le type → téléverser le fichier → entrer le numéro si applicable.',
+    animStepLabel:'Étape en cours',
+    animBadge:'Aperçu interactif',
+    cancel:'Annuler', save:'Enregistrer',
+    sectionTitle:'Documents de l\'entreprise', sectionBadge:'Documents : 33%',
+    tabs:['🏢 Informations de base','Informations détaillées','Documents','Informations avancées'],
+    modalTitle:'Compléter le profil de l\'entreprise',
+    animSteps:[
+      {id:'doc-immat',   label:'Certificat d\'immatriculation', tip:'Clique pour sélectionner ce type de document.'},
+      {id:'doc-upload',  label:'Document justificatif',         tip:'Téléverse le fichier (< 1 Mo).'},
+      {id:'doc-fiscal',  label:'N° d\'identification fiscale',  tip:'Entre ton numéro fiscal si applicable.'},
+      {id:'doc-commerce',label:'Registre du commerce',          tip:'Clique pour sélectionner ce type.'},
+      {id:'doc-tva',     label:'Certificat TVA',                tip:'Clique pour sélectionner ce type.'},
+      {id:'doc-id',      label:'Pièce d\'identité dirigeant',   tip:'Clique pour sélectionner ce type.'},
+    ],
+    docTypes:[
+      {id:'doc-immat',   icon:'📄', label:'Certificat d\'immatriculation', selected:true},
+      {id:'doc-commerce',icon:'🏛', label:'Registre du commerce',          selected:false},
+      {id:'doc-certfis', icon:'🧾', label:'Certificat d\'identification fiscale', selected:false},
+      {id:'doc-statuts', icon:'📝', label:'Statuts de l\'entreprise',       selected:false},
+      {id:'doc-tva',     icon:'💼', label:'Certificat d\'immatriculation TVA', selected:false},
+      {id:'doc-id',      icon:'🪪', label:'Pièce d\'identité du dirigeant', selected:false},
+    ],
+    uploadLabel:'Document justificatif (< 1 Mo)',
+    fiscalLabel:'Numéro d\'identification fiscale',
+    fiscalPlaceholder:'Non fourni',
+    uploadPlaceholder:'Téléverser…',
+    fields:[
+      {name:'Certificat d\'immatriculation',      hint:'Document officiel d\'enregistrement de ton entreprise.',    required:false},
+      {name:'Registre du commerce',               hint:'Extrait prouvant l\'existence légale de l\'entreprise.',    required:false},
+      {name:'Certificat d\'identification fiscale',hint:'Ton numéro et certificat fiscal (NIF/TIN).',               required:false},
+      {name:'Statuts de l\'entreprise',           hint:'Les statuts constitutifs de ta société.',                   required:false},
+      {name:'Certificat d\'immatriculation TVA',  hint:'Si applicable — ton numéro de TVA/TPS.',                    required:false},
+      {name:'Pièce d\'identité du dirigeant',     hint:'Carte d\'identité ou passeport du représentant légal.',    required:false},
+    ]
+  },
+  en:{
+    tab:'Documents', tabIcon:'📄',
+    title:'Your company\'s official documents',
+    intro:'Upload your company\'s legal documents. Click on the desired document type to select it (blue background), then upload the corresponding file.',
+    fieldsTitle:'Accepted document types',
+    tip:'<strong>Note:</strong> Maximum 1 MB per document. The cursor illustrates the sequence: select type → upload file → enter number if applicable.',
+    animStepLabel:'Current step',
+    animBadge:'Interactive preview',
+    cancel:'Cancel', save:'Save',
+    sectionTitle:'Company documents', sectionBadge:'Documents: 33%',
+    tabs:['🏢 Basic information','Detailed information','Documents','Advanced settings'],
+    modalTitle:'Complete company profile',
+    animSteps:[
+      {id:'doc-immat',   label:'Certificate of incorporation', tip:'Click to select this document type.'},
+      {id:'doc-upload',  label:'Supporting document',          tip:'Upload the file (< 1 MB).'},
+      {id:'doc-fiscal',  label:'Tax identification number',    tip:'Enter your tax number if applicable.'},
+      {id:'doc-commerce',label:'Trade register',               tip:'Click to select this type.'},
+      {id:'doc-tva',     label:'VAT certificate',              tip:'Click to select this type.'},
+      {id:'doc-id',      label:'Director\'s ID',               tip:'Click to select this type.'},
+    ],
+    docTypes:[
+      {id:'doc-immat',   icon:'📄', label:'Certificate of incorporation', selected:true},
+      {id:'doc-commerce',icon:'🏛', label:'Trade register',               selected:false},
+      {id:'doc-certfis', icon:'🧾', label:'Tax identification certificate',selected:false},
+      {id:'doc-statuts', icon:'📝', label:'Company bylaws',               selected:false},
+      {id:'doc-tva',     icon:'💼', label:'VAT registration certificate', selected:false},
+      {id:'doc-id',      icon:'🪪', label:'Director\'s ID',               selected:false},
+    ],
+    uploadLabel:'Supporting document (< 1 MB)',
+    fiscalLabel:'Tax identification number',
+    fiscalPlaceholder:'Not provided',
+    uploadPlaceholder:'Upload…',
+    fields:[
+      {name:'Certificate of incorporation',    hint:'Official registration document for your company.',     required:false},
+      {name:'Trade register',                  hint:'Extract proving the legal existence of the company.',  required:false},
+      {name:'Tax identification certificate',  hint:'Your tax identification number and certificate.',      required:false},
+      {name:'Company bylaws',                  hint:'The articles of incorporation of your company.',       required:false},
+      {name:'VAT registration certificate',    hint:'If applicable — your VAT/GST number.',                required:false},
+      {name:'Director\'s ID',                  hint:'Identity card or passport of the legal representative.',required:false},
+    ]
+  },
+  animId:'anim-step3',
+  buildAnim: function(lang){ return buildAnimDocs(lang, this.animId); }
+},
+
+/* ── ÉTAPE 4 : Informations avancées ─────────────────────── */
+{
+  fr:{
+    tab:'Informations avancées', tabIcon:'⚙️',
+    title:'Le contexte stratégique de ton entreprise',
+    intro:'Ces données sont au cœur de Cortex AI. Elles permettent à la plateforme de calibrer ses analyses comparatives et de produire des recommandations vraiment adaptées à ton marché.',
+    fieldsTitle:'Champs à compléter',
+    tip:'<strong>Ces données sont déterminantes :</strong> Cortex AI utilise ton secteur, ta zone géographique et tes objectifs pour calibrer chaque analyse. Plus tu complètes cette section, plus les insights seront précis.',
+    animStepLabel:'Étape en cours',
+    animBadge:'Aperçu interactif',
+    cancel:'Annuler', save:'Enregistrer',
+    sectionTitle:'Informations avancées', sectionBadge:'Avancé : 89%',
+    tabs:['🏢 Informations de base','Informations détaillées','Documents','Informations avancées'],
+    modalTitle:'Compléter le profil de l\'entreprise',
+    animSteps:[
+      {id:'a-secteurs',  label:'Secteurs',                  tip:'Sélectionne ton ou tes secteurs d\'activité principaux.'},
+      {id:'a-clients',   label:'Types de clients',          tip:'B2B Entreprises, B2C Particuliers, B2G Gouvernement…'},
+      {id:'a-mensuel',   label:'Clients mensuels',          tip:'Nombre moyen de clients actifs par mois.'},
+      {id:'a-ca',        label:'Chiffre d\'affaires mensuel',tip:'En milliers — utilisé pour les benchmarks sectoriels.'},
+      {id:'a-zone',      label:'Zone géographique',         tip:'Local, Régional, National, International.'},
+      {id:'a-concurrents',label:'Concurrents principaux',   tip:'2-3 concurrents directs, séparés par des virgules.'},
+      {id:'a-produits',  label:'Produits/services',         tip:'Tes 2-3 offres principales — contextualisent les analyses.'},
+      {id:'a-defis',     label:'Défis actuels',             tip:'Influence la priorisation des recommandations.'},
+      {id:'a-objectifs', label:'Objectifs à court terme',   tip:'Tes objectifs sur 3-6 mois — aligne les recommandations.'},
+    ],
+    fields:[
+      {name:'Secteurs',                   hint:'Sélectionne ton ou tes secteurs d\'activité principaux.',           required:true},
+      {name:'Précisez si autre',          hint:'Si ton secteur n\'est pas dans la liste, décris-le ici.',           required:false},
+      {name:'Types de clients',           hint:'B2B Entreprises, B2C Particuliers, B2G Gouvernement, etc.',        required:false},
+      {name:'Clients mensuels',           hint:'Nombre moyen de clients actifs par mois — clé pour les tendances.',required:false},
+      {name:'Chiffre d\'affaires mensuel',hint:'En milliers — utilisé pour les benchmarks sectoriels.',            required:false},
+      {name:'Zone géographique',          hint:'Local, Régional, National ou International.',                       required:false},
+      {name:'Concurrents principaux',     hint:'2-3 concurrents directs, séparés par des virgules.',               required:false},
+      {name:'Produits/services principaux',hint:'Tes 2-3 offres principales — contextualisent les analyses ventes.',required:false},
+      {name:'Défis actuels',              hint:'Défis opérationnels ou commerciaux — influence les recommandations.',required:false},
+      {name:'Objectifs à court terme',    hint:'Tes objectifs sur 3-6 mois — aligne les recommandations.',         required:false},
+    ]
+  },
+  en:{
+    tab:'Advanced Settings', tabIcon:'⚙️',
+    title:'Your company\'s strategic context',
+    intro:'This data is at the core of Cortex AI. It allows the platform to calibrate its comparative analyses and produce recommendations truly tailored to your market.',
+    fieldsTitle:'Fields to fill in',
+    tip:'<strong>This data is critical:</strong> Cortex AI uses your sector, geographic area and goals to calibrate every analysis. The more you complete this section, the more precise the insights will be.',
+    animStepLabel:'Current step',
+    animBadge:'Interactive preview',
+    cancel:'Cancel', save:'Save',
+    sectionTitle:'Advanced settings', sectionBadge:'Advanced: 89%',
+    tabs:['🏢 Basic information','Detailed information','Documents','Advanced settings'],
+    modalTitle:'Complete company profile',
+    animSteps:[
+      {id:'a-secteurs',  label:'Sectors',             tip:'Select your main business sector(s).'},
+      {id:'a-clients',   label:'Client types',         tip:'B2B Companies, B2C Consumers, B2G Government…'},
+      {id:'a-mensuel',   label:'Monthly clients',      tip:'Average number of active clients per month.'},
+      {id:'a-ca',        label:'Monthly revenue',      tip:'In thousands — used for sector benchmarks.'},
+      {id:'a-zone',      label:'Geographic area',      tip:'Local, Regional, National, International.'},
+      {id:'a-concurrents',label:'Main competitors',    tip:'2-3 direct competitors, separated by commas.'},
+      {id:'a-produits',  label:'Products/services',    tip:'Your 2-3 main offerings — contextualize analyses.'},
+      {id:'a-defis',     label:'Current challenges',   tip:'Influences the prioritization of recommendations.'},
+      {id:'a-objectifs', label:'Short-term goals',     tip:'Your 3-6 month goals — aligns recommendations.'},
+    ],
+    fields:[
+      {name:'Sectors',               hint:'Select your main business sector(s).',                          required:true},
+      {name:'Specify if other',      hint:'If your sector is not in the list, describe it here.',          required:false},
+      {name:'Client types',          hint:'B2B Companies, B2C Consumers, B2G Government, etc.',            required:false},
+      {name:'Monthly clients',       hint:'Average active clients per month — key for trend analyses.',    required:false},
+      {name:'Monthly revenue',       hint:'In thousands — used for sector benchmarks.',                    required:false},
+      {name:'Geographic area',       hint:'Local, Regional, National or International.',                   required:false},
+      {name:'Main competitors',      hint:'2-3 direct competitors, separated by commas.',                  required:false},
+      {name:'Main products/services',hint:'Your 2-3 main offerings — contextualize sales analyses.',       required:false},
+      {name:'Current challenges',    hint:'Operational or business challenges — influences recommendations.',required:false},
+      {name:'Short-term goals',      hint:'Your 3-6 month goals — aligns Cortex AI recommendations.',      required:false},
+    ]
+  },
+  animId:'anim-step4',
+  buildAnim: function(lang){ return buildAnimAvancees(lang, this.animId); }
+}
+
+]; // fin STEPS_DATA
+
+/* ══════════════════════════════════════════════════════════════
+   BUILDERS — HTML des composants animés
+══════════════════════════════════════════════════════════════ */
+
+function animShell(d, lang, animId, bodyHTML) {
+  return `
+  <div class="anim-wrap" id="wrap-${animId}">
+    <div class="anim-badge"><span class="anim-badge-dot"></span>${d.animBadge}</div>
+    <div class="anim-stepind">${d.animStepLabel} : <strong id="sname-${animId}">${d.animSteps[0].label}</strong></div>
+    <div class="anim-pbar"><div class="anim-pfill" id="pfill-${animId}" style="width:0%"></div></div>
+    <div class="mshell" id="shell-${animId}">
+      <div class="mheader">
+        <div class="mtitle-row"><span>${d.modalTitle}</span><span class="mclose">✕</span></div>
+        <div class="mtabs">
+          ${d.tabs.map((t,i)=>`<div class="mtab${i===0?' active':''}">${t}</div>`).join('')}
+        </div>
+      </div>
+      <div class="mbody">
+        <div class="sechdr">
+          <div class="sectitle">${d.sectionTitle}</div>
+          <div class="${d.sectionBadge.includes('33')||d.sectionBadge.includes('Documents')?'secbadge-o':'secbadge-g'}">${d.sectionBadge}</div>
+        </div>
+        ${bodyHTML}
+      </div>
+      <div class="mfooter"><button class="bcancel">${d.cancel}</button><button class="bsave">${d.save}</button></div>
+      <svg class="acursor" id="cur-${animId}" style="left:40px;top:60px" viewBox="0 0 16 16" fill="none">
+        <path d="M2 2L2 12L5 9L6.8 14L8.4 13.3L6.6 8.5L10.5 8.5L2 2Z" fill="white" stroke="#0C1E3E" stroke-width="1.1" stroke-linejoin="round"/>
+      </svg>
+      <div class="attip" id="tip-${animId}"></div>
+    </div>
+  </div>`;
+}
+
+function buildAnimBase(lang, animId) {
+  const d = STEPS_DATA[0][lang];
+  const body = `
+    <div class="fgrid">
+      <div class="ffield"><div class="flabel">${d.animSteps[0].label}</div><input class="finput" id="i-company" readonly value="Acme Inc."/></div>
+      <div class="ffield"><div class="flabel">${d.animSteps[1].label}</div><input class="finput" id="i-email" readonly value="info@acme.com"/></div>
+      <div class="ffield"><div class="flabel">${d.animSteps[2].label}</div><div class="fselect" id="i-pays">🇨🇦 &nbsp;Canada &nbsp;▾</div></div>
+      <div class="ffield"><div class="flabel">${d.animSteps[3].label}</div><input class="finput" id="i-postal" readonly value="H4K 7J2"/></div>
+      <div class="ffield"><div class="flabel">${d.animSteps[4].label}</div><input class="finput" id="i-adresse" readonly value="123 rue Principale"/></div>
+      <div class="ffield"><div class="flabel">${d.animSteps[5].label}</div><input class="finput" id="i-ville" readonly value="Montréal"/></div>
+      <div class="ffield"><div class="flabel">${d.animSteps[6].label}</div><div class="telgrp" id="i-tel"><span class="telcode">Dial Code ▾</span><input class="telnum" readonly value="+15149774100"/></div></div>
+      <div class="ffield"><div class="flabel">${d.animSteps[7].label}</div><input class="finput" id="i-web" readonly value="www.acme.com"/></div>
+      <div class="ffield full"><div class="flabel">${d.animSteps[8].label}</div><div class="logofield" id="i-logo"><span>${lang==='fr'?'Téléverser un fichier…':'Upload a file…'}</span><span style="color:#D1D5DB">✕</span></div></div>
+    </div>`;
+  return animShell(d, lang, animId, body);
+}
+
+function buildAnimDetail(lang, animId) {
+  const d = STEPS_DATA[1][lang];
+  const body = `
+    <div class="fgrid">
+      <div class="ffield"><div class="flabel">${d.animSteps[0].label}</div><input class="finput" id="d-slogan" readonly value="${lang==='fr'?'Innovation et Technologie':'Innovation and Technology'}"/></div>
+      <div class="ffield"><div class="flabel">${d.animSteps[1].label}</div><div class="fselect" id="d-forme">SA &nbsp;▾</div></div>
+      <div class="ffield"><div class="flabel">${d.animSteps[2].label}</div><div class="adv-spinner" id="d-annee"><span>2024</span><span class="spin-arrows">⌃⌄</span></div></div>
+      <div class="ffield"><div class="flabel">${d.animSteps[3].label}</div><div class="fselect" id="d-employes">${lang==='fr'?'Sélectionner…':'Select…'} &nbsp;▾</div></div>
+      <div class="ffield full"><div class="flabel">${d.animSteps[4].label}</div><textarea class="adv-textarea" id="d-desc" readonly>${lang==='fr'?'Fournisseur de solutions SaaS pour PME…':'SaaS solutions provider for SMEs…'}</textarea></div>
+    </div>`;
+  return animShell(d, lang, animId, body);
+}
+
+function buildAnimDocs(lang, animId) {
+  const d = STEPS_DATA[2][lang];
+  const docBtns = d.docTypes.map(dt =>
+    `<div class="doc-btn${dt.selected?' selected':''}" id="${dt.id}"><span class="doc-icon">${dt.icon}</span>${dt.label}</div>`
+  ).join('');
+  const body = `
+    <div class="doc-center-label">${lang==='fr'?'Sélectionnez le type de document':'Select the document type'}</div>
+    <div class="doc-grid">${docBtns}</div>
+    <div class="doc-upload-row">
+      <div class="ffield">
+        <div class="flabel">${d.uploadLabel}</div>
+        <div class="logofield" id="doc-upload"><span>${d.uploadPlaceholder}</span><span style="color:#D1D5DB">✕</span></div>
+      </div>
+      <div class="ffield">
+        <div class="flabel">${d.fiscalLabel}</div>
+        <input class="finput" id="doc-fiscal" readonly value="${d.fiscalPlaceholder}"/>
+      </div>
+    </div>`;
+  return animShell(d, lang, animId, body);
+}
+
+function buildAnimAvancees(lang, animId) {
+  const d = STEPS_DATA[3][lang];
+  const body = `
+    <div class="adv-grid">
+      <div class="adv-field"><div class="flabel">${d.animSteps[0].label}</div><div class="fselect" id="a-secteurs">${lang==='fr'?'Industrie, Technologies…':'Industry, Technology…'} &nbsp;▾</div></div>
+      <div class="adv-field"><div class="flabel">${lang==='fr'?'Précisez si autre':'Specify if other'}</div><input class="finput" id="a-autre" readonly value="${lang==='fr'?'Analyse prédictive':'Predictive analytics'}"/></div>
+      <div class="adv-field"><div class="flabel">${d.animSteps[1].label}</div><div class="fselect" id="a-clients">${lang==='fr'?'Entreprises':'Companies'} &nbsp;▾</div></div>
+      <div class="adv-field"><div class="flabel">${lang==='fr'?'Précisez si autre':'Specify if other'}</div><input class="finput" id="a-clients2" readonly value="${lang==='fr'?'Entrez le type':'Enter type'}"/></div>
+      <div class="adv-field"><div class="flabel">${d.animSteps[2].label}</div><div class="adv-spinner" id="a-mensuel"><span>7</span><span class="spin-arrows">⌃⌄</span></div></div>
+      <div class="adv-field"><div class="flabel">${d.animSteps[3].label}</div><div class="adv-spinner" id="a-ca"><span>1.5</span><span class="spin-arrows">⌃⌄</span></div></div>
+      <div class="adv-field"><div class="flabel">${d.animSteps[4].label}</div><div class="fselect" id="a-zone">${lang==='fr'?'International':'International'} &nbsp;▾</div></div>
+      <div class="adv-field"><div class="flabel">${d.animSteps[5].label}</div><input class="finput" id="a-concurrents" readonly value="${lang==='fr'?'Concurrent A, Concurrent B':'Competitor A, B'}"/></div>
+      <div class="adv-field full"><div class="flabel">${d.animSteps[6].label}</div><textarea class="adv-textarea" id="a-produits" readonly>${lang==='fr'?'Plateforme SaaS, Automatisation…':'SaaS platform, Automation…'}</textarea></div>
+      <div class="adv-field full"><div class="flabel">${d.animSteps[7].label}</div><textarea class="adv-textarea" id="a-defis" readonly>${lang==='fr'?'Accélérer l\'onboarding client…':'Accelerate client onboarding…'}</textarea></div>
+      <div class="adv-field full"><div class="flabel">${d.animSteps[8].label}</div><textarea class="adv-textarea" id="a-objectifs" readonly>${lang==='fr'?'Augmenter le taux de conversion…':'Increase conversion rate…'}</textarea></div>
+    </div>`;
+  return animShell(d, lang, animId, body);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MOTEUR D'ANIMATION
+══════════════════════════════════════════════════════════════ */
+const animators = {};
+
+function startAnimator(animId, steps) {
+  if (animators[animId]) {
+    clearTimeout(animators[animId].t1);
+    clearTimeout(animators[animId].t2);
   }
-];
+  animators[animId] = { step: 0, t1: null, t2: null, steps };
+  runAnimator(animId);
+}
 
-/* ─────────────────────────────────────────────────────────────
+function runAnimator(animId) {
+  const a = animators[animId];
+  if (!a) return;
+  const step = a.steps[a.step];
+  const shell = document.getElementById('shell-' + animId);
+  if (!shell) return;
+
+  // Clear highlights
+  shell.querySelectorAll('.finput,.fselect,.logofield,.doc-btn,.adv-textarea,.adv-spinner,.telgrp').forEach(e => e.classList.remove('hl'));
+
+  const el = document.getElementById(step.id);
+  const cur = document.getElementById('cur-' + animId);
+  const tip = document.getElementById('tip-' + animId);
+
+  if (el && cur) {
+    const sr = shell.getBoundingClientRect();
+    const er = el.getBoundingClientRect();
+    const cx = er.left - sr.left + er.width / 2;
+    const cy = er.top  - sr.top  + er.height / 2;
+    cur.style.left = (cx - 7) + 'px';
+    cur.style.top  = (cy - 7) + 'px';
+    tip.style.opacity = '0';
+
+    setTimeout(() => {
+      if (el) el.classList.add('hl');
+      const er2 = el.getBoundingClientRect();
+      const sr2 = shell.getBoundingClientRect();
+      const tx = er2.left - sr2.left + er2.width / 2;
+      const ty = er2.top  - sr2.top;
+      tip.textContent = step.tip;
+      tip.style.left = Math.max(4, tx - 70) + 'px';
+      tip.style.top  = (ty - 42) + 'px';
+      tip.style.opacity = '1';
+      const nameEl = document.getElementById('sname-' + animId);
+      if (nameEl) nameEl.textContent = step.label;
+      const pct = Math.round(((a.step + 1) / a.steps.length) * 100);
+      const pfill = document.getElementById('pfill-' + animId);
+      if (pfill) pfill.style.width = pct + '%';
+    }, 420);
+
+    setTimeout(() => { tip.style.opacity = '0'; }, 1500);
+  }
+
+  a.t1 = setTimeout(() => {
+    a.step = (a.step + 1) % a.steps.length;
+    if (a.step === 0) {
+      shell.querySelectorAll('.finput,.fselect,.logofield,.doc-btn,.adv-textarea,.adv-spinner,.telgrp').forEach(e => e.classList.remove('hl'));
+      const pfill = document.getElementById('pfill-' + animId);
+      if (pfill) pfill.style.width = '0%';
+      a.t2 = setTimeout(() => runAnimator(animId), 600);
+    } else {
+      runAnimator(animId);
+    }
+  }, 1800);
+}
+
+/* ══════════════════════════════════════════════════════════════
    RENDU ÉTAPE
-────────────────────────────────────────────────────────────── */
+══════════════════════════════════════════════════════════════ */
 function renderStepContent(index) {
   const step = STEPS_DATA[index];
   const lang = Lang.get();
   const data = step[lang];
   const isLast = index === STEPS_DATA.length - 1;
 
-  // Construire les champs
+  const animHTML = step.buildAnim(lang);
+
   let fieldsHtml = '<div class="fields-list">';
   data.fields.forEach(f => {
     fieldsHtml += `
-      <div class="field-item ${f.required ? 'field-required' : 'field-optional'}">
+      <div class="field-item ${f.required?'field-required':'field-optional'}">
         <div class="field-dot"></div>
         <div class="field-content">
           <div class="field-name">${f.name}</div>
           <div class="field-hint">${f.hint}</div>
         </div>
-        <span class="field-tag ${f.required ? 'tag-required' : 'tag-optional'}">
-          ${f.required
-            ? (lang === 'fr' ? 'Requis' : 'Required')
-            : (lang === 'fr' ? 'Optionnel' : 'Optional')}
+        <span class="field-tag ${f.required?'tag-required':'tag-optional'}">
+          ${f.required?(lang==='fr'?'Requis':'Required'):(lang==='fr'?'Optionnel':'Optional')}
         </span>
-      </div>
-    `;
+      </div>`;
   });
   fieldsHtml += '</div>';
 
-  // Navigation boutons
   const prevBtn = index > 0
-    ? `<button class="btn btn-ghost" onclick="Capsule.prev()">
-        ${svgArrowLeft()}
-        ${lang === 'fr' ? 'Précédent' : 'Previous'}
-       </button>`
-    : `<a href="index.html" class="btn btn-ghost">
-        ${svgHome()}
-        ${lang === 'fr' ? 'Hub' : 'Hub'}
-       </a>`;
+    ? `<button class="btn btn-ghost" onclick="Capsule.prev()">${svgArrowLeft()}${lang==='fr'?'Précédent':'Previous'}</button>`
+    : `<a href="index.html" class="btn btn-ghost">${svgHome()}${lang==='fr'?'Hub':'Hub'}</a>`;
 
   const nextBtn = isLast
-    ? `<button class="btn btn-success" onclick="Capsule.next()">
-        ${lang === 'fr' ? 'Terminer le module' : 'Complete module'}
-        ${svgCheck()}
-       </button>`
-    : `<button class="btn btn-primary" onclick="Capsule.next()">
-        ${lang === 'fr' ? 'Étape suivante' : 'Next step'}
-        ${svgArrowRight()}
-       </button>`;
+    ? `<button class="btn btn-success" onclick="Capsule.next()">${lang==='fr'?'Terminer le module':'Complete module'}${svgCheck()}</button>`
+    : `<button class="btn btn-primary" onclick="Capsule.next()">${lang==='fr'?'Étape suivante':'Next step'}${svgArrowRight()}</button>`;
 
-  const html = `
+  document.getElementById('capsuleMain').innerHTML = `
     <div class="step-content">
       <div class="step-header">
-        <span class="step-num-badge">${lang === 'fr' ? 'Étape' : 'Step'} ${index + 1}/${STEPS_DATA.length}</span>
+        <span class="step-num-badge">${lang==='fr'?'Étape':'Step'} ${index+1}/${STEPS_DATA.length}</span>
         <span class="step-tab-label">${data.tab}</span>
       </div>
       <h1 class="step-title">${data.title}</h1>
       <p class="step-intro">${data.intro}</p>
-
-      <div class="capture-wrapper">
-        <div class="capture-label">${data.capLabel}</div>
-        <img class="capture-img" src="${step.capture}" alt="${data.capLabel}" loading="lazy">
-      </div>
-
+      ${animHTML}
       <div class="fields-section">
         <div class="fields-title">${data.fieldsTitle}</div>
         ${fieldsHtml}
       </div>
-
       <div class="tip-box">
         <div class="tip-icon">💡</div>
         <div class="tip-text">${data.tip}</div>
       </div>
-
       <div class="step-nav">
         <div class="step-nav-left">${prevBtn}</div>
         <div class="step-nav-right">${nextBtn}</div>
       </div>
-    </div>
-  `;
+    </div>`;
 
-  document.getElementById('capsuleMain').innerHTML = html;
+  setTimeout(() => startAnimator(step.animId, data.animSteps), 300);
 }
 
-/* ─────────────────────────────────────────────────────────────
-   RENDU SIDEBAR
-────────────────────────────────────────────────────────────── */
 function renderSidebarSteps(currentIndex) {
   const sidebar  = document.getElementById('capsuleSidebar');
   const lang     = Lang.get();
   const completed = Progress.getCompletedSteps(MODULE_ID);
-
-  let stepsHtml = `
-    <div class="sidebar-module-name" data-fr="Module 01 — Profil entreprise" data-en="Module 01 — Company Profile">
-      ${lang === 'fr' ? 'Module 01 — Profil entreprise' : 'Module 01 — Company Profile'}
-    </div>
-  `;
+  let html = `<div class="sidebar-module-name">${lang==='fr'?'Module 01 — Profil entreprise':'Module 01 — Company Profile'}</div>`;
 
   STEPS_DATA.forEach((step, i) => {
     const data   = step[lang];
     const isDone = completed.includes(i) || Progress.isModuleDone(MODULE_ID);
     const isActive = i === currentIndex && !Progress.isModuleDone(MODULE_ID);
-
-    let stateClass = 'todo', indicatorClass = 'todo', indicatorContent = i + 1;
-    if (isDone) { stateClass = 'done'; indicatorClass = 'done'; indicatorContent = svgCheck(); }
-    else if (isActive) { stateClass = 'active'; indicatorClass = 'active'; indicatorContent = i + 1; }
-
-    stepsHtml += `
-      <div class="sidebar-step ${stateClass}" onclick="if(${isDone || isActive || i <= completed.length}) Capsule.goToStep(${i})">
-        <div class="step-indicator ${indicatorClass}">${indicatorContent}</div>
+    let stateClass = 'todo', indClass = 'todo', indContent = i+1;
+    if (isDone)   { stateClass='done';   indClass='done';   indContent=svgCheck(); }
+    else if (isActive) { stateClass='active'; indClass='active'; }
+    html += `
+      <div class="sidebar-step ${stateClass}" onclick="if(${isDone||isActive||i<=completed.length}) Capsule.goToStep(${i})">
+        <div class="step-indicator ${indClass}">${indContent}</div>
         <div class="step-info">
           <div class="step-name">${data.tab}</div>
-          <div class="step-sub">${data.fields.length} ${lang === 'fr' ? 'champs' : 'fields'}</div>
+          <div class="step-sub">${data.fields.length} ${lang==='fr'?'champs':'fields'}</div>
         </div>
-      </div>
-    `;
+      </div>`;
   });
 
-  stepsHtml += `
+  html += `
     <div class="sidebar-progress">
       <div class="sidebar-progress-label">
-        <span data-fr="Progression" data-en="Progress">${lang === 'fr' ? 'Progression' : 'Progress'}</span>
+        <span>${lang==='fr'?'Progression':'Progress'}</span>
         <span class="sidebar-progress-pct">0%</span>
       </div>
-      <div class="progress-track" style="height:6px">
-        <div class="progress-fill" style="width:0%"></div>
-      </div>
-    </div>
-  `;
-
-  // Remplacer tout sauf le nœud progress (géré séparément)
-  sidebar.innerHTML = stepsHtml;
+      <div class="progress-track" style="height:6px"><div class="progress-fill" style="width:0%"></div></div>
+    </div>`;
+  sidebar.innerHTML = html;
 }
 
-/* ─────────────────────────────────────────────────────────────
+/* ══════════════════════════════════════════════════════════════
    INIT
-────────────────────────────────────────────────────────────── */
+══════════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-  // Vérifier accès
-  if (!Progress.isModuleUnlocked(MODULE_ID)) {
-    window.location.href = 'index.html';
-    return;
-  }
-
+  if (!Progress.isModuleUnlocked(MODULE_ID)) { window.location.href='index.html'; return; }
   Capsule.registerRenderers(renderStepContent, renderSidebarSteps);
   Capsule.init({ moduleId: MODULE_ID, totalSteps: STEPS_DATA.length });
-
-  // Re-render sur changement de langue
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       setTimeout(() => {
