@@ -123,7 +123,8 @@ const Capsule = (() => {
     // Restore last step if module not done
     const completed = Progress.getCompletedSteps(moduleId);
     if (!Progress.isModuleDone(moduleId) && completed.length > 0) {
-      currentStep = Math.min(completed.length, totalSteps - 1);
+      const maxDone = Math.max(...completed);
+      currentStep = Math.min(maxDone + 1, totalSteps - 1);
     }
 
     renderStep(currentStep);
@@ -133,8 +134,9 @@ const Capsule = (() => {
 
   const goToStep = (index) => {
     if (index < 0 || index >= totalSteps) return;
+    // Marquer l'étape qu'on quitte comme complétée
+    Progress.markStep(moduleId, currentStep);
     currentStep = index;
-    Progress.markStep(moduleId, index);
     renderStep(index);
     renderSidebar();
     renderProgress();
@@ -143,8 +145,13 @@ const Capsule = (() => {
   };
 
   const next = () => {
+    Progress.markStep(moduleId, currentStep);
     if (currentStep < totalSteps - 1) {
-      goToStep(currentStep + 1);
+      currentStep += 1;
+      renderStep(currentStep);
+      renderSidebar();
+      renderProgress();
+      document.querySelector('.capsule-main')?.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       // Dernière étape → marquer module complet
       Progress.markModuleDone(moduleId);
