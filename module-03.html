@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 03 — Team Spaces</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap');
+.anim-wrap { margin-bottom: 32px; }
+.anim-badge { display:inline-flex; align-items:center; gap:6px; font-size:10px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:#4B33A8; background:#EDE9F8; padding:3px 10px; border-radius:20px; margin-bottom:10px; }
+.anim-badge-dot { width:5px; height:5px; border-radius:50%; background:#0D9488; animation:abd 2s ease-in-out infinite; }
+@keyframes abd{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
+.anim-stepind { font-size:11px; color:#9CA3AF; margin-bottom:6px; font-weight:500; font-family:'Sora',sans-serif; }
+.anim-pbar { height:3px; background:#E5E7EB; border-radius:2px; margin-bottom:12px; overflow:hidden; }
+.anim-pfill { height:100%; background:linear-gradient(90deg,#4B33A8,#2653D4); border-radius:2px; transition:width .35s; }
+.acursor { position:absolute; width:15px; height:15px; pointer-events:none; z-index:99; transition:left .4s cubic-bezier(.4,0,.2,1),top .4s cubic-bezier(.4,0,.2,1); filter:drop-shadow(0 1px 2px rgba(0,0,0,.2)); }
+.attip { position:absolute; background:#0C1E3E; color:#fff; font-size:10px; font-family:'Sora',sans-serif; font-weight:500; padding:4px 9px; border-radius:6px; pointer-events:none; z-index:100; opacity:0; transition:opacity .2s; max-width:210px; line-height:1.5; }
+.attip::after { content:''; position:absolute; bottom:-5px; left:10px; border:5px solid transparent; border-bottom:none; border-top-color:#0C1E3E; }
+
+/* ── Shell applicatif ── */
+.appshell { background:#F9FAFB; border-radius:12px; border:1px solid #E5E7EB; overflow:hidden; position:relative; box-shadow:0 4px 16px rgba(12,30,62,.08); display:flex; min-height:280px; }
+.appsidebar { width:160px; background:#fff; border-right:1px solid #F3F4F6; padding:10px 0; flex-shrink:0; }
+.appmain { flex:1; padding:16px 18px; background:#F9FAFB; }
+
+/* Sidebar app */
+.sb-section { font-size:9px; font-weight:700; color:#9CA3AF; letter-spacing:.06em; text-transform:uppercase; padding:8px 12px 4px; font-family:'Sora',sans-serif; }
+.sb-item { display:flex; align-items:center; gap:7px; padding:6px 12px; font-size:11px; font-family:'Sora',sans-serif; color:#374151; cursor:pointer; transition:background .15s; }
+.sb-item:hover { background:#F3F4F6; }
+.sb-item.active { background:#EEF3FD; color:#2653D4; font-weight:600; }
+.sb-item.hl { background:#EDE9F8; color:#4B33A8; border-radius:6px; }
+.sb-avatar { width:22px; height:22px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:8px; font-weight:700; color:#fff; flex-shrink:0; }
+.sb-label { flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.sb-arrow { font-size:8px; color:#9CA3AF; }
+.sb-header { display:flex; align-items:center; justify-content:space-between; padding:6px 12px 4px; }
+.sb-header-label { font-size:10px; font-weight:700; color:#0C1E3E; font-family:'Sora',sans-serif; }
+.sb-add-btn { width:18px; height:18px; border-radius:4px; background:#F3F4F6; border:none; display:flex; align-items:center; justify-content:center; font-size:12px; color:#6B7280; cursor:pointer; font-family:'Sora',sans-serif; transition:background .15s,box-shadow .2s; }
+.sb-add-btn.hl { background:#EDE9F8; color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.15); }
+
+/* Main app */
+.page-title { font-size:15px; font-weight:700; color:#0C1E3E; font-family:'Sora',sans-serif; margin-bottom:10px; }
+.stat-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:14px; }
+.stat-card { border-radius:8px; padding:10px 12px; }
+.stat-card.blue { background:linear-gradient(135deg,#2653D4,#1a3fa8); }
+.stat-card.orange { background:linear-gradient(135deg,#F59E0B,#D97706); }
+.stat-card.green { background:linear-gradient(135deg,#0D9488,#0a7a70); }
+.stat-label { font-size:9px; color:rgba(255,255,255,.8); font-family:'Sora',sans-serif; margin-bottom:4px; }
+.stat-value { font-size:18px; font-weight:700; color:#fff; font-family:'Sora',sans-serif; }
+
+/* Modal overlay */
+.modal-overlay { position:absolute; inset:0; background:rgba(12,30,62,.35); display:flex; align-items:center; justify-content:center; z-index:50; border-radius:12px; }
+.modal-box { background:#fff; border-radius:12px; padding:20px; width:320px; box-shadow:0 8px 32px rgba(12,30,62,.18); position:relative; }
+.modal-title { font-size:13px; font-weight:700; color:#0C1E3E; font-family:'Sora',sans-serif; margin-bottom:14px; }
+.modal-close { position:absolute; top:14px; right:14px; font-size:14px; color:#9CA3AF; cursor:pointer; background:none; border:none; }
+.modal-label { font-size:10px; font-weight:600; color:#374151; font-family:'Sora',sans-serif; margin-bottom:5px; }
+.modal-input { width:100%; border:1.5px solid #2653D4; border-radius:6px; padding:8px 10px; font-size:12px; font-family:'Sora',sans-serif; color:#0C1E3E; box-sizing:border-box; outline:none; margin-bottom:14px; transition:border-color .2s,box-shadow .2s; }
+.modal-input.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.15); }
+.modal-input-search { width:100%; border:1.5px solid #E5E7EB; border-radius:6px; padding:8px 10px; font-size:12px; font-family:'Sora',sans-serif; color:#9CA3AF; box-sizing:border-box; outline:none; margin-bottom:12px; transition:border-color .2s,box-shadow .2s; }
+.modal-input-search.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.15); }
+.modal-actions { display:flex; justify-content:flex-end; gap:8px; }
+.modal-btn-cancel { font-size:11px; font-weight:600; color:#374151; background:#fff; border:1.5px solid #E5E7EB; border-radius:20px; padding:6px 16px; font-family:'Sora',sans-serif; cursor:pointer; }
+.modal-btn-confirm { font-size:11px; font-weight:600; color:#fff; background:#2653D4; border:none; border-radius:20px; padding:6px 16px; font-family:'Sora',sans-serif; cursor:pointer; transition:box-shadow .2s; }
+.modal-btn-confirm.hl { box-shadow:0 0 0 3px rgba(38,83,212,.25); }
+.modal-section-title { font-size:10px; font-weight:700; color:#374151; font-family:'Sora',sans-serif; margin-bottom:8px; }
+.modal-user-row { display:flex; align-items:center; gap:10px; padding:8px 10px; background:#EEF3FD; border-radius:8px; }
+.modal-user-avatar { width:28px; height:28px; border-radius:50%; background:#9CA3AF; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; color:#fff; }
+.modal-user-info .uname { font-size:11px; font-weight:600; color:#0C1E3E; font-family:'Sora',sans-serif; }
+.modal-user-info .uemail { font-size:9px; color:#6B7280; font-family:'Sora',sans-serif; }
+
+/* Menu contextuel */
+.ctx-menu { position:absolute; background:#fff; border:1px solid #E5E7EB; border-radius:8px; box-shadow:0 4px 16px rgba(12,30,62,.12); padding:4px 0; min-width:170px; z-index:60; }
+.ctx-item { display:flex; align-items:center; gap:8px; padding:7px 14px; font-size:11px; font-family:'Sora',sans-serif; color:#374151; cursor:pointer; transition:background .1s; }
+.ctx-item:hover { background:#F9FAFB; }
+.ctx-item.hl { background:#EDE9F8; color:#4B33A8; font-weight:600; }
+.ctx-icon { font-size:12px; width:14px; text-align:center; }
+
+/* Dossiers */
+.folders-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.folder-card { background:#fff; border:1px solid #E5E7EB; border-radius:8px; padding:10px; transition:border-color .2s,box-shadow .2s; }
+.folder-card.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.08); }
+.folder-icon { font-size:20px; margin-bottom:4px; }
+.folder-name { font-size:10px; font-weight:600; color:#2653D4; font-family:'Sora',sans-serif; }
+.folder-meta { font-size:9px; color:#9CA3AF; font-family:'Sora',sans-serif; }
+.new-folder-btn { background:#fff; border:1.5px dashed #D1D5DB; border-radius:8px; padding:10px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; cursor:pointer; transition:border-color .2s,box-shadow .2s; min-height:60px; }
+.new-folder-btn.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.08); background:#FDFCFF; }
+.new-folder-plus { font-size:16px; color:#9CA3AF; }
+.new-folder-label { font-size:9px; color:#9CA3AF; font-family:'Sora',sans-serif; font-weight:500; }
+</style>
+</head>
+<body>
+
+<header class="guide-header">
+  <a href="index.html" class="header-brand">
+    <div class="header-logo">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    <span class="header-brand-name">Comulead</span>
+    <span class="header-brand-sub" data-fr="Guide utilisateur" data-en="User Guide">Guide utilisateur</span>
+  </a>
+  <div class="header-right">
+    <a href="index.html" class="back-to-hub">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+      <span data-fr="Hub" data-en="Hub">Hub</span>
+    </a>
+    <div class="lang-toggle">
+      <button class="lang-btn active" data-lang="fr">FR</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+  </div>
+</header>
+
+<div class="capsule-layout">
+  <aside class="capsule-sidebar" id="capsuleSidebar"></aside>
+  <main class="capsule-main" id="capsuleMain"></main>
+</div>
+
+<script src="assets/core.js"></script>
+<script>
+const MODULE_ID = 'module-03';
+
+/* ══════════════════════════════════════════════════
+   DONNÉES — 4 ÉTAPES
+══════════════════════════════════════════════════ */
+const STEPS_DATA = [
+
+/* ── ÉTAPE 1 : Créer un espace d'équipe ────────── */
+{
+  fr:{
+    tab:'Créer un espace', tabIcon:'➕',
+    title:'Créer un nouvel espace d\'équipe',
+    intro:'Les espaces d\'équipe sont des unités autonomes de travail. Chaque espace regroupe ses propres campagnes, dossiers et membres. Pour en créer un, clique sur le <strong>+</strong> à côté de "Espaces d\'équipe" dans la barre latérale.',
+    fieldsTitle:'Ce que tu vas configurer',
+    tip:'<strong>Conseil :</strong> Nomme ton espace selon son usage — par département (Marketing, RH, Ventes) ou par projet. Un bon nom facilite la navigation quand tu as plusieurs espaces.',
+    animBadge:'Aperçu interactif',
+    animStepLabel:'Étape en cours',
+    animSteps:[
+      {id:'sb-espaces-header', label:'Espaces d\'équipe',   tip:'Cette section liste tous tes espaces de travail.'},
+      {id:'sb-add-btn',        label:'Bouton + Créer',       tip:'Clique sur + pour créer un nouvel espace d\'équipe.'},
+      {id:'sb-item-projets',   label:'Espace : Projets',     tip:'Exemple d\'espace existant — clique pour l\'ouvrir.'},
+      {id:'sb-item-dev',       label:'Espace : Développe…',  tip:'Chaque espace a sa propre couleur et ses initiales.'},
+      {id:'sb-item-marketing', label:'Espace : Marketing',   tip:'L\'espace actif est mis en surbrillance bleue.'},
+    ],
+    fields:[
+      {name:'Bouton + (créer)',      hint:'Lance la création d\'un nouvel espace d\'équipe.',                   required:true},
+      {name:'Nom de l\'espace',      hint:'Choisi librement — ex : Marketing, RH, Ventes, Projets.',           required:true},
+      {name:'Couleur / initiales',   hint:'Générées automatiquement à partir du nom — identifient l\'espace.', required:false},
+      {name:'Navigation latérale',   hint:'Tous tes espaces sont listés ici — clique pour basculer.',          required:false},
+    ]
+  },
+  en:{
+    tab:'Create a space', tabIcon:'➕',
+    title:'Creating a new team space',
+    intro:'Team spaces are autonomous work units. Each space has its own campaigns, folders and members. To create one, click the <strong>+</strong> next to "Team Spaces" in the sidebar.',
+    fieldsTitle:'What you will configure',
+    tip:'<strong>Tip:</strong> Name your space by usage — by department (Marketing, HR, Sales) or by project. A clear name makes navigation easier when you have multiple spaces.',
+    animBadge:'Interactive preview',
+    animStepLabel:'Current step',
+    animSteps:[
+      {id:'sb-espaces-header', label:'Team Spaces',          tip:'This section lists all your workspaces.'},
+      {id:'sb-add-btn',        label:'+ Create button',       tip:'Click + to create a new team space.'},
+      {id:'sb-item-projets',   label:'Space: Projects',       tip:'Example of an existing space — click to open.'},
+      {id:'sb-item-dev',       label:'Space: Develop…',       tip:'Each space has its own color and initials.'},
+      {id:'sb-item-marketing', label:'Space: Marketing',      tip:'The active space is highlighted in blue.'},
+    ],
+    fields:[
+      {name:'+ button (create)',   hint:'Launches the creation of a new team space.',                          required:true},
+      {name:'Space name',          hint:'Freely chosen — e.g. Marketing, HR, Sales, Projects.',               required:true},
+      {name:'Color / initials',    hint:'Auto-generated from the name — identifies the space.',                required:false},
+      {name:'Side navigation',     hint:'All your spaces are listed here — click to switch.',                  required:false},
+    ]
+  },
+  animId:'anim-step1'
+},
+
+/* ── ÉTAPE 2 : Nommer l'espace ─────────────────── */
+{
+  fr:{
+    tab:'Nommer l\'espace', tabIcon:'✏️',
+    title:'Donner un nom à ton espace d\'équipe',
+    intro:'Après avoir cliqué sur +, une fenêtre s\'ouvre pour nommer l\'espace. Entre le nom choisi dans le champ, puis clique sur <strong>Renommer</strong> pour confirmer.',
+    fieldsTitle:'Les champs du formulaire',
+    tip:'<strong>Astuce :</strong> Tu peux renommer un espace à tout moment — fais un clic droit ou utilise le menu ⋮ à côté de son nom dans la barre latérale.',
+    animBadge:'Aperçu interactif',
+    animStepLabel:'Étape en cours',
+    animSteps:[
+      {id:'modal-title-rename',   label:'Titre de la fenêtre',  tip:'Indique l\'action en cours : renommer l\'espace.'},
+      {id:'modal-input-name',     label:'Champ Nom',             tip:'Entre le nom de ton espace — ex : Marketing, RH.'},
+      {id:'modal-btn-cancel',     label:'Bouton Annuler',        tip:'Annule sans créer d\'espace.'},
+      {id:'modal-btn-rename',     label:'Bouton Renommer',       tip:'Confirme et crée l\'espace avec ce nom.'},
+    ],
+    fields:[
+      {name:'Nom de l\'espace',  hint:'Texte libre — choisir un nom court et descriptif.',                    required:true},
+      {name:'Annuler',           hint:'Ferme la fenêtre sans créer d\'espace.',                               required:false},
+      {name:'Renommer',          hint:'Confirme la création (ou le renommage) de l\'espace.',                 required:true},
+    ]
+  },
+  en:{
+    tab:'Name the space', tabIcon:'✏️',
+    title:'Naming your team space',
+    intro:'After clicking +, a window opens to name the space. Enter your chosen name in the field, then click <strong>Rename</strong> to confirm.',
+    fieldsTitle:'Form fields',
+    tip:'<strong>Tip:</strong> You can rename a space at any time — right-click or use the ⋮ menu next to its name in the sidebar.',
+    animBadge:'Interactive preview',
+    animStepLabel:'Current step',
+    animSteps:[
+      {id:'modal-title-rename',   label:'Window title',          tip:'Indicates the current action: rename the space.'},
+      {id:'modal-input-name',     label:'Name field',            tip:'Enter your space name — e.g. Marketing, HR.'},
+      {id:'modal-btn-cancel',     label:'Cancel button',         tip:'Closes the window without creating a space.'},
+      {id:'modal-btn-rename',     label:'Rename button',         tip:'Confirms and creates the space with this name.'},
+    ],
+    fields:[
+      {name:'Space name',   hint:'Free text — choose a short and descriptive name.',                          required:true},
+      {name:'Cancel',       hint:'Closes the window without creating a space.',                                required:false},
+      {name:'Rename',       hint:'Confirms the creation (or renaming) of the space.',                         required:true},
+    ]
+  },
+  animId:'anim-step2'
+},
+
+/* ── ÉTAPE 3 : Ajouter membres et dossiers ─────── */
+{
+  fr:{
+    tab:'Membres & Dossiers', tabIcon:'👥',
+    title:'Ajouter des membres et des dossiers',
+    intro:'Une fois l\'espace créé, clique sur les <strong>trois points ⋮</strong> à côté de son nom pour accéder au menu contextuel. Tu peux y ajouter des membres, créer des dossiers, ou voir tous les utilisateurs.',
+    fieldsTitle:'Les options du menu contextuel',
+    tip:'<strong>Organisation :</strong> Les dossiers permettent de regrouper tes campagnes par thème ou par client. Tu peux en créer autant que nécessaire — il n\'y a pas de limite.',
+    animBadge:'Aperçu interactif',
+    animStepLabel:'Étape en cours',
+    animSteps:[
+      {id:'ctx-rename',       label:'Option : Renommer',             tip:'Renomme l\'espace d\'équipe à tout moment.'},
+      {id:'ctx-voir-users',   label:'Option : Voir les utilisateurs', tip:'Affiche la liste complète des membres de cet espace.'},
+      {id:'ctx-add-user',     label:'Option : Ajouter un utilisateur',tip:'Ouvre le formulaire d\'invitation d\'un membre.'},
+      {id:'ctx-add-folder',   label:'Option : Ajouter un dossier',   tip:'Crée un nouveau dossier dans cet espace.'},
+      {id:'folder-new-btn',   label:'Nouveau dossier',               tip:'Tu peux aussi créer un dossier directement depuis la vue principale.'},
+    ],
+    fields:[
+      {name:'Renommer',               hint:'Modifie le nom de l\'espace à tout moment.',                     required:false},
+      {name:'Voir tous les utilisateurs', hint:'Consulte la liste des membres assignés à cet espace.',       required:false},
+      {name:'Ajouter un utilisateur', hint:'Invite un membre de ton organisation dans cet espace.',          required:false},
+      {name:'Ajouter un dossier',     hint:'Crée un dossier pour organiser tes campagnes.',                  required:false},
+      {name:'Nouveau dossier',        hint:'Bouton de création rapide dans la vue principale.',              required:false},
+    ]
+  },
+  en:{
+    tab:'Members & Folders', tabIcon:'👥',
+    title:'Adding members and folders',
+    intro:'Once the space is created, click the <strong>three dots ⋮</strong> next to its name to access the context menu. You can add members, create folders, or view all users.',
+    fieldsTitle:'Context menu options',
+    tip:'<strong>Organization:</strong> Folders let you group campaigns by theme or client. You can create as many as needed — there is no limit.',
+    animBadge:'Interactive preview',
+    animStepLabel:'Current step',
+    animSteps:[
+      {id:'ctx-rename',       label:'Option: Rename',               tip:'Rename the team space at any time.'},
+      {id:'ctx-voir-users',   label:'Option: View users',           tip:'Shows the full list of members in this space.'},
+      {id:'ctx-add-user',     label:'Option: Add a user',           tip:'Opens the member invitation form.'},
+      {id:'ctx-add-folder',   label:'Option: Add a folder',         tip:'Creates a new folder in this space.'},
+      {id:'folder-new-btn',   label:'New folder',                   tip:'You can also create a folder directly from the main view.'},
+    ],
+    fields:[
+      {name:'Rename',                hint:'Edit the space name at any time.',                                 required:false},
+      {name:'View all users',         hint:'See the list of members assigned to this space.',                 required:false},
+      {name:'Add a user',             hint:'Invite an organization member to this space.',                    required:false},
+      {name:'Add a folder',           hint:'Create a folder to organize your campaigns.',                     required:false},
+      {name:'New folder',             hint:'Quick creation button in the main view.',                         required:false},
+    ]
+  },
+  animId:'anim-step3'
+},
+
+/* ── ÉTAPE 4 : Ajouter un utilisateur ──────────── */
+{
+  fr:{
+    tab:'Ajouter un utilisateur', tabIcon:'👤',
+    title:'Ajouter un utilisateur à l\'espace',
+    intro:'La fenêtre "Ajouter un utilisateur" affiche les membres déjà dans l\'espace et te permet d\'en ajouter d\'autres. Recherche un membre de ton organisation dans le champ de recherche, sélectionne-le, puis clique sur <strong>Ajouter</strong>.',
+    fieldsTitle:'Les éléments de la fenêtre',
+    tip:'<strong>Important :</strong> Seuls les membres déjà invités dans ton organisation (onglet Membres des Paramètres généraux) peuvent être ajoutés à un espace d\'équipe.',
+    animBadge:'Aperçu interactif',
+    animStepLabel:'Étape en cours',
+    animSteps:[
+      {id:'modal-search-user',    label:'Rechercher un utilisateur', tip:'Tape le nom ou l\'email du membre à ajouter.'},
+      {id:'modal-add-confirm',    label:'Bouton Ajouter',            tip:'Confirme l\'ajout du membre sélectionné.'},
+      {id:'modal-close-btn',      label:'Bouton Fermer',             tip:'Ferme la fenêtre sans ajouter de membre.'},
+      {id:'modal-user-abel',      label:'Utilisateur actuel',        tip:'Les membres déjà dans l\'espace sont listés ici.'},
+    ],
+    fields:[
+      {name:'Rechercher un utilisateur', hint:'Filtre les membres disponibles de ton organisation.',          required:true},
+      {name:'Utilisateurs actuels',      hint:'Liste les membres déjà assignés à cet espace.',               required:false},
+      {name:'Ajouter',                   hint:'Ajoute le membre sélectionné à l\'espace d\'équipe.',          required:false},
+      {name:'Fermer',                    hint:'Ferme la fenêtre — les membres déjà ajoutés sont conservés.', required:false},
+    ]
+  },
+  en:{
+    tab:'Add a user', tabIcon:'👤',
+    title:'Adding a user to the space',
+    intro:'The "Add a user" window shows members already in the space and lets you add more. Search for an organization member in the search field, select them, then click <strong>Add</strong>.',
+    fieldsTitle:'Window elements',
+    tip:'<strong>Important:</strong> Only members already invited to your organization (Members tab in General Settings) can be added to a team space.',
+    animBadge:'Interactive preview',
+    animStepLabel:'Current step',
+    animSteps:[
+      {id:'modal-search-user',    label:'Search for a user',         tip:'Type the name or email of the member to add.'},
+      {id:'modal-add-confirm',    label:'Add button',                tip:'Confirms adding the selected member.'},
+      {id:'modal-close-btn',      label:'Close button',              tip:'Closes the window without adding a member.'},
+      {id:'modal-user-abel',      label:'Current user',              tip:'Members already in the space are listed here.'},
+    ],
+    fields:[
+      {name:'Search for a user',   hint:'Filters available members of your organization.',                    required:true},
+      {name:'Current users',        hint:'Lists members already assigned to this space.',                     required:false},
+      {name:'Add',                  hint:'Adds the selected member to the team space.',                       required:false},
+      {name:'Close',                hint:'Closes the window — already-added members are kept.',               required:false},
+    ]
+  },
+  animId:'anim-step4'
+}
+
+]; // fin STEPS_DATA
+
+/* ══════════════════════════════════════════════════
+   BUILDERS HTML ANIMÉS
+══════════════════════════════════════════════════ */
+function animShell(stepIndex, lang, animId, bodyHTML) {
+  const d = STEPS_DATA[stepIndex][lang];
+  return `
+  <div class="anim-wrap">
+    <div class="anim-badge"><span class="anim-badge-dot"></span>${d.animBadge}</div>
+    <div class="anim-stepind"><span id="sname-${animId}">${d.animSteps[0].label}</span></div>
+    <div class="anim-pbar"><div class="anim-pfill" id="pfill-${animId}" style="width:0%"></div></div>
+    <div class="appshell" id="shell-${animId}">
+      <svg class="acursor" id="cur-${animId}" style="left:10px;top:10px" viewBox="0 0 24 24">
+        <path d="M4 2L4 20L8 16L11 22L13 21L10 15L16 15Z" fill="#0C1E3E" stroke="white" stroke-width="1"/>
+      </svg>
+      <div class="attip" id="tip-${animId}"></div>
+      ${bodyHTML}
+    </div>
+  </div>`;
+}
+
+function buildAnimStep(stepIndex, lang) {
+  const animId = STEPS_DATA[stepIndex].animId;
+  if (stepIndex === 0) return buildAnimCreer(lang, animId);
+  if (stepIndex === 1) return buildAnimNommer(lang, animId);
+  if (stepIndex === 2) return buildAnimMenu(lang, animId);
+  if (stepIndex === 3) return buildAnimAjouterUser(lang, animId);
+  return '';
+}
+
+function sidebarHTML(lang, activeId) {
+  const spaces = [
+    {id:'sb-item-projets',   color:'#2653D4', init:'PR', label:'Projets'},
+    {id:'sb-item-dev',       color:'#0D9488', init:'DE', label:lang==='fr'?'Développe…':'Develop…'},
+    {id:'sb-item-archi',     color:'#7C3AED', init:'AR', label:'Architecture'},
+    {id:'sb-item-ts',        color:'#EC4899', init:'TS', label:'Team Suppr…'},
+    {id:'sb-item-marketing', color:'#2653D4', init:'MA', label:'Marketing', active:true},
+  ];
+  return `
+    <div class="appsidebar">
+      <div class="sb-section" style="margin-top:8px">Navigation</div>
+      <div class="sb-item"><span style="font-size:14px">📊</span><span class="sb-label">${lang==='fr'?'Mes campagnes':'My campaigns'}</span></div>
+      <div style="height:8px"></div>
+      <div class="sb-header" id="sb-espaces-header">
+        <span class="sb-header-label">${lang==='fr'?'Espaces d\'équipe':'Team Spaces'}</span>
+        <button class="sb-add-btn" id="sb-add-btn">+</button>
+      </div>
+      ${spaces.map(s=>`
+        <div class="sb-item${s.active?' active':''}" id="${s.id}">
+          <span class="sb-arrow">›</span>
+          <div class="sb-avatar" style="background:${s.color}">${s.init}</div>
+          <span class="sb-label">${s.label}</span>
+        </div>`).join('')}
+    </div>`;
+}
+
+function buildAnimCreer(lang, animId) {
+  const mainHTML = `
+    <div class="appmain">
+      <div class="page-title">${lang==='fr'?'Gérer les campagnes':'Manage campaigns'}</div>
+      <div class="stat-cards">
+        <div class="stat-card blue"><div class="stat-label">${lang==='fr'?'Total campagnes':'Total campaigns'}</div><div class="stat-value">2</div></div>
+        <div class="stat-card orange"><div class="stat-label">${lang==='fr'?'Brouillon':'Draft'}</div><div class="stat-value">0</div></div>
+        <div class="stat-card green"><div class="stat-label">${lang==='fr'?'Publiées':'Published'}</div><div class="stat-value">2</div></div>
+      </div>
+      <div style="font-size:11px;font-weight:700;color:#0C1E3E;font-family:'Sora',sans-serif;margin-bottom:8px">${lang==='fr'?'Dossiers':'Folders'}</div>
+      <div class="folders-grid">
+        ${['DOSSIER GÉNÉRAL','PROJET N°1','ANALYSE BESOINS'].map(f=>`
+          <div class="folder-card">
+            <div class="folder-icon">📁</div>
+            <div class="folder-name">${f}</div>
+            <div class="folder-meta">0 ${lang==='fr'?'campagne':'campaign'}</div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  return animShell(0, lang, animId, sidebarHTML(lang, 'sb-item-marketing') + mainHTML);
+}
+
+function buildAnimNommer(lang, animId) {
+  const mainHTML = `
+    <div class="appmain" style="position:relative">
+      <div class="page-title" style="opacity:.3">${lang==='fr'?'Gérer les campagnes':'Manage campaigns'}</div>
+      <div class="stat-cards" style="opacity:.3">
+        <div class="stat-card blue"><div class="stat-label">Total</div><div class="stat-value">2</div></div>
+        <div class="stat-card orange"><div class="stat-label">Draft</div><div class="stat-value">0</div></div>
+        <div class="stat-card green"><div class="stat-label">Published</div><div class="stat-value">2</div></div>
+      </div>
+      <div class="modal-overlay">
+        <div class="modal-box">
+          <div class="modal-title" id="modal-title-rename">${lang==='fr'?'Renommer l\'espace d\'équipe':'Rename the team space'}</div>
+          <button class="modal-close">✕</button>
+          <div class="modal-label">${lang==='fr'?'Nom de l\'espace d\'équipe':'Team space name'}</div>
+          <input class="modal-input" id="modal-input-name" value="Marketing" readonly/>
+          <div class="modal-actions">
+            <button class="modal-btn-cancel" id="modal-btn-cancel">${lang==='fr'?'Annuler':'Cancel'}</button>
+            <button class="modal-btn-confirm" id="modal-btn-rename">${lang==='fr'?'Renommer':'Rename'}</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  return animShell(1, lang, animId, sidebarHTML(lang) + mainHTML);
+}
+
+function buildAnimMenu(lang, animId) {
+  const mainHTML = `
+    <div class="appmain" style="position:relative">
+      <div class="page-title">${lang==='fr'?'Gérer les campagnes':'Manage campaigns'}</div>
+      <div class="stat-cards">
+        <div class="stat-card blue"><div class="stat-label">Total</div><div class="stat-value">0</div></div>
+        <div class="stat-card orange"><div class="stat-label">Draft</div><div class="stat-value">0</div></div>
+        <div class="stat-card green"><div class="stat-label">Published</div><div class="stat-value">0</div></div>
+      </div>
+      <div style="font-size:11px;font-weight:700;color:#0C1E3E;font-family:'Sora',sans-serif;margin-bottom:8px">${lang==='fr'?'Dossiers':'Folders'}</div>
+      <div class="folders-grid">
+        <div class="folder-card"><div class="folder-icon">📁</div><div class="folder-name">DOSSIER GÉNÉRAL</div><div class="folder-meta">0</div></div>
+        <div class="new-folder-btn" id="folder-new-btn">
+          <div class="new-folder-plus">＋</div>
+          <div class="new-folder-label">${lang==='fr'?'Nouveau dossier':'New folder'}</div>
+        </div>
+      </div>
+      <div class="ctx-menu" style="position:absolute;top:30px;left:8px">
+        <div class="ctx-item" id="ctx-rename"><span class="ctx-icon">✏️</span>${lang==='fr'?'Renommer':'Rename'}</div>
+        <div class="ctx-item" id="ctx-voir-users"><span class="ctx-icon">👁</span>${lang==='fr'?'Voir tous les utilisateurs':'View all users'}</div>
+        <div class="ctx-item" id="ctx-add-user"><span class="ctx-icon">👤</span>${lang==='fr'?'Ajouter un utilisateur':'Add a user'}</div>
+        <div class="ctx-item" id="ctx-add-folder"><span class="ctx-icon">📁</span>${lang==='fr'?'Ajouter un dossier':'Add a folder'}</div>
+      </div>
+    </div>`;
+  return animShell(2, lang, animId, sidebarHTML(lang) + mainHTML);
+}
+
+function buildAnimAjouterUser(lang, animId) {
+  const mainHTML = `
+    <div class="appmain" style="position:relative">
+      <div class="page-title" style="opacity:.3">${lang==='fr'?'Gérer les campagnes':'Manage campaigns'}</div>
+      <div class="stat-cards" style="opacity:.3">
+        <div class="stat-card blue"><div class="stat-label">Total</div><div class="stat-value">0</div></div>
+        <div class="stat-card orange"><div class="stat-label">Draft</div><div class="stat-value">0</div></div>
+        <div class="stat-card green"><div class="stat-label">Published</div><div class="stat-value">0</div></div>
+      </div>
+      <div class="modal-overlay">
+        <div class="modal-box">
+          <div class="modal-title">${lang==='fr'?'Ajouter un utilisateur à l\'espace d\'équipe':'Add a user to the team space'}</div>
+          <button class="modal-close" id="modal-close-btn">✕</button>
+          <div class="modal-label">${lang==='fr'?'Utilisateur *':'User *'}</div>
+          <input class="modal-input-search" id="modal-search-user" readonly placeholder="${lang==='fr'?'Rechercher un utilisateur…':'Search for a user…'}"/>
+          <div class="modal-actions" style="margin-bottom:14px">
+            <button class="modal-btn-cancel">${lang==='fr'?'Fermer':'Close'}</button>
+            <button class="modal-btn-confirm" id="modal-add-confirm">${lang==='fr'?'Ajouter':'Add'}</button>
+          </div>
+          <div class="modal-section-title">${lang==='fr'?'Utilisateurs actuels (1)':'Current users (1)'}</div>
+          <div class="modal-user-row" id="modal-user-abel">
+            <div class="modal-user-avatar">AP</div>
+            <div class="modal-user-info">
+              <div class="uname">Abel Pagbe E.</div>
+              <div class="uemail">info@comulead.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  return animShell(3, lang, animId, sidebarHTML(lang) + mainHTML);
+}
+
+/* ══════════════════════════════════════════════════
+   MOTEUR D'ANIMATION
+══════════════════════════════════════════════════ */
+const animators = {};
+
+function startAnimator(animId, steps) {
+  if (animators[animId]) {
+    clearTimeout(animators[animId].t1);
+    clearTimeout(animators[animId].t2);
+  }
+  animators[animId] = { step:0, t1:null, t2:null, steps };
+  runAnimator(animId);
+}
+
+function stopAllAnimators() {
+  Object.keys(animators).forEach(id => {
+    clearTimeout(animators[id].t1);
+    clearTimeout(animators[id].t2);
+  });
+}
+
+function runAnimator(animId) {
+  const a = animators[animId];
+  if (!a) return;
+  const step = a.steps[a.step];
+  const shell = document.getElementById('shell-' + animId);
+  if (!shell) return;
+
+  shell.querySelectorAll('.sb-add-btn,.sb-item,.sb-header,.ctx-item,.modal-input,.modal-input-search,.modal-btn-confirm,.modal-btn-cancel,.modal-close,.modal-user-row,.folder-card,.new-folder-btn')
+       .forEach(e => e.classList.remove('hl'));
+
+  const el  = document.getElementById(step.id);
+  const cur = document.getElementById('cur-' + animId);
+  const tip = document.getElementById('tip-' + animId);
+
+  if (el && cur) {
+    const sr = shell.getBoundingClientRect();
+    const er = el.getBoundingClientRect();
+    cur.style.left = (er.left - sr.left + er.width/2 - 7) + 'px';
+    cur.style.top  = (er.top  - sr.top  + er.height/2 - 7) + 'px';
+    tip.style.opacity = '0';
+
+    setTimeout(() => {
+      if (!document.getElementById('shell-' + animId)) return;
+      el.classList.add('hl');
+      const er2 = el.getBoundingClientRect();
+      const sr2 = shell.getBoundingClientRect();
+      tip.textContent = step.tip;
+      tip.style.left = Math.max(4, er2.left - sr2.left + er2.width/2 - 80) + 'px';
+      tip.style.top  = (er2.top - sr2.top - 46) + 'px';
+      tip.style.opacity = '1';
+      const nm = document.getElementById('sname-' + animId);
+      if (nm) nm.textContent = step.label;
+      const pf = document.getElementById('pfill-' + animId);
+      if (pf) pf.style.width = Math.round(((a.step+1)/a.steps.length)*100) + '%';
+    }, 420);
+
+    setTimeout(() => { tip.style.opacity = '0'; }, 1500);
+  }
+
+  a.t1 = setTimeout(() => {
+    a.step = (a.step + 1) % a.steps.length;
+    if (a.step === 0) {
+      if (shell) shell.querySelectorAll('.sb-add-btn,.sb-item,.sb-header,.ctx-item,.modal-input,.modal-input-search,.modal-btn-confirm,.modal-btn-cancel,.modal-close,.modal-user-row,.folder-card,.new-folder-btn')
+                      .forEach(e => e.classList.remove('hl'));
+      const pf = document.getElementById('pfill-' + animId);
+      if (pf) pf.style.width = '0%';
+      a.t2 = setTimeout(() => runAnimator(animId), 600);
+    } else {
+      runAnimator(animId);
+    }
+  }, 1800);
+}
+
+/* ══════════════════════════════════════════════════
+   RENDU ÉTAPE
+══════════════════════════════════════════════════ */
+function renderStepContent(index) {
+  stopAllAnimators();
+  const step = STEPS_DATA[index];
+  const lang = Lang.get();
+  const data = step[lang];
+  const isLast = (index === STEPS_DATA.length - 1);
+  const animHTML = buildAnimStep(index, lang);
+
+  let fieldsHtml = '<div class="fields-list">';
+  data.fields.forEach(f => {
+    fieldsHtml += `
+      <div class="field-item ${f.required?'field-required':'field-optional'}">
+        <div class="field-dot"></div>
+        <div class="field-content">
+          <div class="field-name">${f.name}</div>
+          <div class="field-hint">${f.hint}</div>
+        </div>
+        <span class="field-tag ${f.required?'tag-required':'tag-optional'}">
+          ${f.required?(lang==='fr'?'Requis':'Required'):(lang==='fr'?'Optionnel':'Optional')}
+        </span>
+      </div>`;
+  });
+  fieldsHtml += '</div>';
+
+  const prevBtn = index > 0
+    ? `<button class="btn btn-ghost" id="btn-prev">${svgArrowLeft()}${lang==='fr'?'Précédent':'Previous'}</button>`
+    : `<a href="index.html" class="btn btn-ghost">${svgHome()}${lang==='fr'?'Hub':'Hub'}</a>`;
+
+  const nextBtn = isLast
+    ? `<button class="btn btn-success" id="btn-next">${lang==='fr'?'Terminer le module':'Complete module'}${svgCheck()}</button>`
+    : `<button class="btn btn-primary" id="btn-next">${lang==='fr'?'Étape suivante':'Next step'}${svgArrowRight()}</button>`;
+
+  document.getElementById('capsuleMain').innerHTML = `
+    <div class="step-content">
+      <div class="step-header">
+        <span class="step-num-badge">${lang==='fr'?'Étape':'Step'} ${index+1}/${STEPS_DATA.length}</span>
+        <span class="step-tab-label">${data.tab}</span>
+      </div>
+      <h1 class="step-title">${data.title}</h1>
+      <p class="step-intro">${data.intro}</p>
+      ${animHTML}
+      <div class="fields-section">
+        <div class="fields-title">${data.fieldsTitle}</div>
+        ${fieldsHtml}
+      </div>
+      <div class="tip-box">
+        <div class="tip-icon">💡</div>
+        <div class="tip-text">${data.tip}</div>
+      </div>
+      <div class="step-nav">
+        <div class="step-nav-left">${prevBtn}</div>
+        <div class="step-nav-right">${nextBtn}</div>
+      </div>
+    </div>`;
+
+  const btnNext = document.getElementById('btn-next');
+  const btnPrev = document.getElementById('btn-prev');
+  if (btnNext) btnNext.addEventListener('click', () => Capsule.next());
+  if (btnPrev) btnPrev.addEventListener('click', () => Capsule.prev());
+
+  setTimeout(() => startAnimator(step.animId, data.animSteps), 300);
+}
+
+function renderSidebarSteps(currentIndex) {
+  const sidebar   = document.getElementById('capsuleSidebar');
+  const lang      = Lang.get();
+  const completed = Progress.getCompletedSteps(MODULE_ID);
+  let html = `<div class="sidebar-module-name">${lang==='fr'?'Module 03 — Team Spaces':'Module 03 — Team Spaces'}</div>`;
+
+  STEPS_DATA.forEach((step, i) => {
+    const data     = step[lang];
+    const isDone   = completed.includes(i) || Progress.isModuleDone(MODULE_ID);
+    const isActive = (i === currentIndex) && !Progress.isModuleDone(MODULE_ID);
+    let stateClass = 'todo', indClass = 'todo', indContent = i+1;
+    if (isDone)        { stateClass='done';   indClass='done';   indContent=svgCheck(); }
+    else if (isActive) { stateClass='active'; indClass='active'; }
+    html += `
+      <div class="sidebar-step ${stateClass}" data-step="${i}">
+        <div class="step-indicator ${indClass}">${indContent}</div>
+        <div class="step-info">
+          <div class="step-name">${data.tab}</div>
+          <div class="step-sub">${data.fields.length} ${lang==='fr'?'champs':'fields'}</div>
+        </div>
+      </div>`;
+  });
+
+  html += `
+    <div class="sidebar-progress">
+      <div class="sidebar-progress-label">
+        <span>${lang==='fr'?'Progression':'Progress'}</span>
+        <span class="sidebar-progress-pct">0%</span>
+      </div>
+      <div class="progress-track" style="height:6px"><div class="progress-fill" style="width:0%"></div></div>
+    </div>`;
+  sidebar.innerHTML = html;
+
+  sidebar.querySelectorAll('.sidebar-step').forEach(el => {
+    const i = parseInt(el.dataset.step);
+    const isDone   = completed.includes(i) || Progress.isModuleDone(MODULE_ID);
+    const isActive = (i === currentIndex) && !Progress.isModuleDone(MODULE_ID);
+    if (isDone || isActive || i <= completed.length) {
+      el.addEventListener('click', () => Capsule.goToStep(i));
+    }
+  });
+}
+
+/* ══════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  if (!Progress.isModuleUnlocked(MODULE_ID)) {
+    const data = Progress.load();
+    data[MODULE_ID] = data[MODULE_ID] || {};
+    data[MODULE_ID].unlocked = true;
+    localStorage.setItem('cml_guide_progress', JSON.stringify(data));
+  }
+  Capsule.registerRenderers(renderStepContent, renderSidebarSteps);
+  Capsule.init({ moduleId: MODULE_ID, totalSteps: STEPS_DATA.length });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(() => {
+        renderStepContent(Capsule.getCurrent());
+        renderSidebarSteps(Capsule.getCurrent());
+      }, 10);
+    });
+  });
+});
+</script>
+</body>
+</html>
