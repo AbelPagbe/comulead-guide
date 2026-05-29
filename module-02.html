@@ -6,7 +6,6 @@
 <title>Module 02 — Paramètres généraux</title>
 <link rel="stylesheet" href="assets/style.css">
 <style>
-/* ── COMPOSANTS ANIMÉS INLINE ─────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap');
 .anim-wrap { margin-bottom: 32px; }
 .anim-badge { display:inline-flex; align-items:center; gap:6px; font-size:10px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:#4B33A8; background:#EDE9F8; padding:3px 10px; border-radius:20px; margin-bottom:10px; }
@@ -26,55 +25,50 @@
 .acursor { position:absolute; width:15px; height:15px; pointer-events:none; z-index:99; transition:left .4s cubic-bezier(.4,0,.2,1),top .4s cubic-bezier(.4,0,.2,1); filter:drop-shadow(0 1px 2px rgba(0,0,0,.2)); }
 .attip { position:absolute; background:#0C1E3E; color:#fff; font-size:10px; font-family:'Sora',sans-serif; font-weight:500; padding:4px 9px; border-radius:6px; pointer-events:none; z-index:100; opacity:0; transition:opacity .2s; max-width:200px; line-height:1.5; }
 .attip::after { content:''; position:absolute; bottom:-5px; left:10px; border:5px solid transparent; border-bottom:none; border-top-color:#0C1E3E; }
-
-/* ── Membres ── */
+/* Membres */
 .members-hdr { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
 .members-title { font-size:13px; font-weight:700; color:#0C1E3E; font-family:'Sora',sans-serif; }
 .mbtn-invite { font-size:10px; font-weight:600; color:#0C1E3E; border:1.5px solid #D1D5DB; border-radius:6px; padding:5px 12px; background:#fff; font-family:'Sora',sans-serif; transition:border-color .2s,box-shadow .2s; cursor:pointer; }
 .mbtn-invite.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.12); background:#FDFCFF; }
 .member-row { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid #F3F4F6; }
 .member-row:last-child { border-bottom:none; }
-.avatar { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; font-family:'Sora',sans-serif; flex-shrink:0; transition:box-shadow .2s; }
-.avatar.hl { box-shadow:0 0 0 3px rgba(75,51,168,.25); }
+.member-row.hl { background:#F8F6FF; border-radius:8px; padding-left:6px; }
+.avatar { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; font-family:'Sora',sans-serif; flex-shrink:0; }
 .member-info { flex:1; }
 .member-name-row { display:flex; align-items:center; gap:6px; margin-bottom:2px; }
 .member-name { font-size:12px; font-weight:600; color:#0C1E3E; font-family:'Sora',sans-serif; }
 .badge-vous { font-size:9px; font-weight:700; color:#2653D4; background:#EEF3FD; padding:1px 6px; border-radius:10px; font-family:'Sora',sans-serif; }
 .member-email { font-size:10px; color:#6B7280; font-family:'Sora',sans-serif; }
 .member-date { font-size:9px; color:#9CA3AF; font-family:'Sora',sans-serif; }
-.role-badge { font-size:10px; font-weight:600; padding:3px 10px; border-radius:6px; font-family:'Sora',sans-serif; transition:box-shadow .2s; }
+.role-badge { font-size:10px; font-weight:600; padding:3px 10px; border-radius:6px; font-family:'Sora',sans-serif; }
 .role-badge.admin { color:#0C1E3E; background:#F3F4F6; border:1.5px solid #E5E7EB; }
 .role-badge.membre { color:#6B7280; background:#fff; font-weight:500; }
-.role-badge.hl { box-shadow:0 0 0 3px rgba(75,51,168,.15); border-color:#4B33A8; }
-
-/* ── Contacts ── */
+.role-badge.hl { box-shadow:0 0 0 3px rgba(75,51,168,.15); border-color:#4B33A8 !important; border:1.5px solid; }
+/* Contacts */
 .contacts-toolbar { display:flex; gap:8px; align-items:center; margin-bottom:12px; flex-wrap:wrap; }
-.csearch { flex:1; min-width:140px; border:1.5px solid #E5E7EB; border-radius:6px; padding:6px 10px 6px 28px; font-size:10px; font-family:'Sora',sans-serif; color:#9CA3AF; background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") no-repeat 9px center; transition:border-color .2s,box-shadow .2s; }
-.csearch.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.12); background-color:#FDFCFF; }
-.cbtn-add { font-size:10px; font-weight:600; color:#fff; background:#2653D4; border:none; border-radius:6px; padding:6px 10px; font-family:'Sora',sans-serif; display:flex; align-items:center; gap:4px; cursor:pointer; transition:box-shadow .2s; }
+.csearch { flex:1; min-width:140px; border:1.5px solid #E5E7EB; border-radius:6px; padding:6px 10px; font-size:10px; font-family:'Sora',sans-serif; color:#9CA3AF; background:#fff; transition:border-color .2s,box-shadow .2s; }
+.csearch.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.12); }
+.cbtn-add { font-size:10px; font-weight:600; color:#fff; background:#2653D4; border:none; border-radius:6px; padding:6px 10px; font-family:'Sora',sans-serif; cursor:pointer; transition:box-shadow .2s; }
 .cbtn-add.hl { box-shadow:0 0 0 3px rgba(38,83,212,.25); }
-.cbtn-sec { font-size:10px; font-weight:600; color:#374151; background:#fff; border:1.5px solid #E5E7EB; border-radius:6px; padding:5px 10px; font-family:'Sora',sans-serif; display:flex; align-items:center; gap:4px; cursor:pointer; transition:border-color .2s,box-shadow .2s; }
-.cbtn-sec.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.12); background:#FDFCFF; }
+.cbtn-sec { font-size:10px; font-weight:600; color:#374151; background:#fff; border:1.5px solid #E5E7EB; border-radius:6px; padding:5px 10px; font-family:'Sora',sans-serif; cursor:pointer; transition:border-color .2s,box-shadow .2s; }
+.cbtn-sec.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.12); }
 .ctable { width:100%; border-collapse:collapse; font-family:'Sora',sans-serif; }
 .ctable th { font-size:9px; font-weight:700; color:#6B7280; text-transform:uppercase; letter-spacing:.04em; padding:6px 8px; border-bottom:1px solid #E5E7EB; text-align:left; }
 .ctable td { font-size:10px; color:#374151; padding:7px 8px; border-bottom:1px solid #F3F4F6; vertical-align:middle; }
 .ctable tr:last-child td { border-bottom:none; }
-.ctable tr.hl-row td { background:#F8F6FF; }
-.cell-check { width:16px; height:16px; border:1.5px solid #D1D5DB; border-radius:3px; }
-.cell-verified { display:inline-flex; align-items:center; gap:3px; font-size:10px; }
+.ctable tr.hl td { background:#F8F6FF; }
 .dot-ok { width:8px; height:8px; border-radius:50%; background:#0D9488; display:inline-block; }
 .dot-err { width:8px; height:8px; border-radius:50%; background:#EF4444; display:inline-block; }
 .cpager { display:flex; align-items:center; gap:6px; margin-top:10px; justify-content:space-between; }
 .pager-info { font-size:9px; color:#9CA3AF; font-family:'Sora',sans-serif; }
 .pager-btns { display:flex; gap:4px; }
-.pager-btn { width:22px; height:22px; border-radius:4px; border:1px solid #E5E7EB; background:#fff; font-size:10px; color:#374151; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+.pager-btn { width:22px; height:22px; border-radius:4px; border:1px solid #E5E7EB; background:#fff; font-size:10px; color:#374151; display:flex; align-items:center; justify-content:center; }
 .pager-btn.active { background:#2653D4; color:#fff; border-color:#2653D4; }
-
-/* ── Intégrations ── */
+/* Intégrations */
 .integrations-hdr { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
 .integrations-title { font-size:13px; font-weight:700; color:#0C1E3E; font-family:'Sora',sans-serif; }
 .ibtn-add { font-size:10px; font-weight:600; color:#0C1E3E; border:1.5px solid #D1D5DB; border-radius:6px; padding:5px 12px; background:#fff; font-family:'Sora',sans-serif; display:flex; align-items:center; gap:4px; transition:border-color .2s,box-shadow .2s; cursor:pointer; }
-.ibtn-add.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.12); background:#FDFCFF; }
+.ibtn-add.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.12); }
 .ifilter-btn { width:30px; height:30px; border:1.5px solid #E5E7EB; border-radius:6px; background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#6B7280; font-size:12px; transition:border-color .2s,box-shadow .2s; }
 .ifilter-btn.hl { border-color:#4B33A8; box-shadow:0 0 0 3px rgba(75,51,168,.12); }
 .file-row { display:flex; align-items:center; gap:10px; padding:10px 12px; border:1px solid #E5E7EB; border-radius:8px; margin-bottom:8px; transition:border-color .2s,box-shadow .2s; }
@@ -94,7 +88,7 @@
 .space-suppression { background:#FEE2E2; color:#DC2626; }
 .space-projets { background:#EEF3FD; color:#2653D4; }
 .file-actions { display:flex; gap:6px; color:#9CA3AF; font-size:12px; }
-.file-action-btn { cursor:pointer; }
+.file-action-btn { cursor:pointer; transition:color .2s; }
 .file-action-btn.hl { color:#4B33A8; }
 </style>
 </head>
@@ -129,12 +123,12 @@
 <script>
 const MODULE_ID = 'module-02';
 
-/* ══════════════════════════════════════════════════════════════
-   CONTENU BILINGUE — 3 ÉTAPES
-══════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   DONNÉES — 3 ÉTAPES
+══════════════════════════════════════════════════════ */
 const STEPS_DATA = [
 
-/* ── ÉTAPE 1 : Membres ───────────────────────────────────── */
+/* ── ÉTAPE 1 : Membres ─────────────────────────────── */
 {
   fr:{
     tab:'Membres', tabIcon:'👥',
@@ -142,24 +136,25 @@ const STEPS_DATA = [
     intro:'L\'onglet Membres affiche toutes les personnes ayant accès à ton espace Comulead. Tu peux y consulter leurs rôles, et inviter de nouveaux collaborateurs en un clic.',
     fieldsTitle:'Ce que tu peux faire ici',
     tip:'<strong>Conseil :</strong> Seul un Administrateur peut inviter de nouveaux membres ou modifier les rôles. Si tu as besoin d\'ajouter un collègue, c\'est ici que ça se passe.',
-    animStepLabel:'Étape en cours',
     animBadge:'Aperçu interactif',
-    sectionTitle:'Membres', sectionBadge:'2 membres actifs',
-    tabs:['Détails','Membres','Contacts','Intégrations','Utilisation','Plans & Facturation'],
+    animStepLabel:'Étape en cours',
     modalTitle:'Paramètres généraux',
+    sectionTitle:'Membres',
+    sectionBadge:'2 membres actifs',
+    tabs:['Détails','Membres','Contacts','Intégrations','Utilisation','Plans & Facturation'],
     animSteps:[
-      {id:'m-invite-btn', label:'Inviter un membre',   tip:'Clique ici pour envoyer une invitation par courriel.'},
-      {id:'m-row-abel',   label:'Membre : toi',         tip:'Ton profil — rôle Administrateur par défaut.'},
-      {id:'m-role-abel',  label:'Rôle Administrateur',  tip:'Les Admins peuvent gérer les membres et les paramètres.'},
-      {id:'m-row-steph',  label:'Autre membre',          tip:'Les membres ont accès à la plateforme selon leurs permissions.'},
-      {id:'m-role-steph', label:'Rôle Membre',           tip:'Les Membres accèdent aux analyses sans gérer l\'organisation.'},
+      {id:'m-invite-btn', label:'Inviter un membre',    tip:'Clique ici pour envoyer une invitation par courriel.'},
+      {id:'m-row-abel',   label:'Ton profil',            tip:'Ton profil — rôle Administrateur par défaut.'},
+      {id:'m-role-abel',  label:'Rôle Administrateur',   tip:'Les Admins peuvent gérer les membres et les paramètres.'},
+      {id:'m-row-steph',  label:'Autre membre',           tip:'Les membres ont accès à la plateforme selon leurs permissions.'},
+      {id:'m-role-steph', label:'Rôle Membre',            tip:'Les Membres accèdent aux analyses sans gérer l\'organisation.'},
     ],
     fields:[
-      {name:'Inviter un membre',    hint:'Envoie une invitation par courriel à un nouveau collaborateur.',         required:false},
-      {name:'Nom et courriel',      hint:'Affichés pour chaque membre — identifient la personne dans l\'équipe.',  required:false},
-      {name:'Date d\'adhésion',     hint:'Indique quand le membre a rejoint ton organisation Comulead.',           required:false},
-      {name:'Rôle : Administrateur',hint:'Accès complet — gestion des membres, paramètres et facturation.',       required:false},
-      {name:'Rôle : Membre',        hint:'Accès aux analyses et aux modules selon les permissions accordées.',    required:false},
+      {name:'Inviter un membre',     hint:'Envoie une invitation par courriel à un nouveau collaborateur.',        required:false},
+      {name:'Nom et courriel',       hint:'Affichés pour chaque membre — identifient la personne dans l\'équipe.', required:false},
+      {name:'Date d\'adhésion',      hint:'Indique quand le membre a rejoint ton organisation Comulead.',          required:false},
+      {name:'Rôle : Administrateur', hint:'Accès complet — gestion des membres, paramètres et facturation.',      required:false},
+      {name:'Rôle : Membre',         hint:'Accès aux analyses et aux modules selon les permissions accordées.',   required:false},
     ]
   },
   en:{
@@ -168,156 +163,159 @@ const STEPS_DATA = [
     intro:'The Members tab displays everyone with access to your Comulead workspace. You can review their roles and invite new collaborators in one click.',
     fieldsTitle:'What you can do here',
     tip:'<strong>Tip:</strong> Only an Administrator can invite new members or change roles. If you need to add a colleague, this is where to do it.',
-    animStepLabel:'Current step',
     animBadge:'Interactive preview',
-    sectionTitle:'Members', sectionBadge:'2 active members',
-    tabs:['Details','Members','Contacts','Integrations','Usage','Plans & Billing'],
+    animStepLabel:'Current step',
     modalTitle:'General Settings',
+    sectionTitle:'Members',
+    sectionBadge:'2 active members',
+    tabs:['Details','Members','Contacts','Integrations','Usage','Plans & Billing'],
     animSteps:[
-      {id:'m-invite-btn', label:'Invite a member',      tip:'Click here to send an invitation by email.'},
-      {id:'m-row-abel',   label:'Member: you',           tip:'Your profile — Administrator role by default.'},
-      {id:'m-role-abel',  label:'Administrator role',    tip:'Admins can manage members and settings.'},
-      {id:'m-row-steph',  label:'Another member',         tip:'Members access the platform according to their permissions.'},
-      {id:'m-role-steph', label:'Member role',            tip:'Members access analyses without managing the organization.'},
+      {id:'m-invite-btn', label:'Invite a member',     tip:'Click here to send an email invitation.'},
+      {id:'m-row-abel',   label:'Your profile',         tip:'Your profile — Administrator role by default.'},
+      {id:'m-role-abel',  label:'Administrator role',   tip:'Admins can manage members and settings.'},
+      {id:'m-row-steph',  label:'Another member',        tip:'Members access the platform per their permissions.'},
+      {id:'m-role-steph', label:'Member role',           tip:'Members access analyses without managing the organization.'},
     ],
     fields:[
-      {name:'Invite a member',      hint:'Send an email invitation to a new collaborator.',                        required:false},
-      {name:'Name and email',        hint:'Displayed for each member — identifies them within the team.',           required:false},
-      {name:'Join date',             hint:'Shows when the member joined your Comulead organization.',               required:false},
-      {name:'Role: Administrator',   hint:'Full access — manages members, settings, and billing.',                  required:false},
-      {name:'Role: Member',          hint:'Access to analyses and modules based on granted permissions.',           required:false},
+      {name:'Invite a member',       hint:'Send an email invitation to a new collaborator.',                       required:false},
+      {name:'Name and email',         hint:'Displayed for each member — identifies them within the team.',          required:false},
+      {name:'Join date',              hint:'Shows when the member joined your Comulead organization.',              required:false},
+      {name:'Role: Administrator',    hint:'Full access — manages members, settings, and billing.',                 required:false},
+      {name:'Role: Member',           hint:'Access to analyses and modules based on granted permissions.',          required:false},
     ]
   },
-  animId:'anim-step1',
-  buildAnim: function(lang){ return buildAnimMembres(lang, this.animId); }
+  animId:'anim-step1'
 },
 
-/* ── ÉTAPE 2 : Contacts ──────────────────────────────────── */
+/* ── ÉTAPE 2 : Contacts ────────────────────────────── */
 {
   fr:{
     tab:'Contacts', tabIcon:'📇',
     title:'Gérer ta liste de contacts',
     intro:'L\'onglet Contacts centralise tous tes prospects et clients. Tu peux les ajouter manuellement, les importer en lot depuis un fichier, ou les exporter pour usage externe.',
     fieldsTitle:'Les colonnes de la liste',
-    tip:'<strong>Import en lot :</strong> Ton fichier d\'import doit contenir au minimum une colonne "Nom complet" et une colonne "Email". Les colonnes Téléphone SMS et WhatsApp sont optionnelles mais recommandées pour les campagnes.',
-    animStepLabel:'Étape en cours',
+    tip:'<strong>Import en lot :</strong> Ton fichier doit contenir au minimum une colonne "Nom complet" et une colonne "Email". Les colonnes Téléphone SMS et WhatsApp sont optionnelles.',
     animBadge:'Aperçu interactif',
-    sectionTitle:'Contacts', sectionBadge:'5 contacts',
-    tabs:['Détails','Membres','Contacts','Intégrations','Utilisation','Plans & Facturation'],
+    animStepLabel:'Étape en cours',
     modalTitle:'Paramètres généraux',
+    sectionTitle:'Contacts',
+    sectionBadge:'5 contacts',
+    tabs:['Détails','Membres','Contacts','Intégrations','Utilisation','Plans & Facturation'],
     animSteps:[
       {id:'c-search',     label:'Rechercher',            tip:'Filtre la liste par nom, courriel ou numéro.'},
       {id:'c-btn-add',    label:'Ajouter un prospect',   tip:'Crée un contact manuellement dans le formulaire.'},
       {id:'c-btn-import', label:'Importer',              tip:'Importe une liste CSV ou Excel de contacts.'},
       {id:'c-btn-export', label:'Exporter',              tip:'Télécharge ta liste de contacts en CSV.'},
       {id:'c-row-1',      label:'Contact : Abel Contact', tip:'Chaque ligne = un contact avec ses canaux de communication.'},
-      {id:'c-row-3',      label:'Contact avec téléphone', tip:'Le ✅ vert confirme qu\'un numéro de téléphone est vérifié.'},
+      {id:'c-row-3',      label:'Contact avec téléphone', tip:'Le point vert confirme qu\'un numéro est vérifié.'},
     ],
     fields:[
-      {name:'Nom complet',        hint:'Prénom et nom du contact — affiché dans toutes les vues.',               required:true},
-      {name:'Email',              hint:'Adresse courriel principale — canal de communication privilégié.',        required:true},
-      {name:'Téléphone SMS',      hint:'Numéro pour les notifications par SMS.',                                  required:false},
-      {name:'Téléphone WhatsApp', hint:'Numéro pour les messages WhatsApp — doit être associé à un compte.',     required:false},
-      {name:'Messenger',          hint:'Canal Messenger Facebook — optionnel.',                                   required:false},
+      {name:'Nom complet',        hint:'Prénom et nom du contact — affiché dans toutes les vues.',              required:true},
+      {name:'Email',              hint:'Adresse courriel principale — canal de communication privilégié.',       required:true},
+      {name:'Téléphone SMS',      hint:'Numéro pour les notifications par SMS.',                                 required:false},
+      {name:'Téléphone WhatsApp', hint:'Numéro pour les messages WhatsApp.',                                     required:false},
+      {name:'Messenger',          hint:'Canal Messenger Facebook — optionnel.',                                  required:false},
     ]
   },
   en:{
     tab:'Contacts', tabIcon:'📇',
     title:'Managing your contact list',
-    intro:'The Contacts tab centralizes all your prospects and clients. You can add them manually, import them in bulk from a file, or export them for external use.',
+    intro:'The Contacts tab centralizes all your prospects and clients. Add them manually, import in bulk, or export for external use.',
     fieldsTitle:'List columns',
-    tip:'<strong>Bulk import:</strong> Your import file must contain at least a "Full name" column and an "Email" column. Phone SMS and WhatsApp columns are optional but recommended for campaigns.',
-    animStepLabel:'Current step',
+    tip:'<strong>Bulk import:</strong> Your file must contain at least a "Full name" and an "Email" column. Phone columns are optional.',
     animBadge:'Interactive preview',
-    sectionTitle:'Contacts', sectionBadge:'5 contacts',
-    tabs:['Details','Members','Contacts','Integrations','Usage','Plans & Billing'],
+    animStepLabel:'Current step',
     modalTitle:'General Settings',
+    sectionTitle:'Contacts',
+    sectionBadge:'5 contacts',
+    tabs:['Details','Members','Contacts','Integrations','Usage','Plans & Billing'],
     animSteps:[
-      {id:'c-search',     label:'Search',                tip:'Filter the list by name, email or number.'},
-      {id:'c-btn-add',    label:'Add a prospect',        tip:'Create a contact manually using the form.'},
-      {id:'c-btn-import', label:'Import',                tip:'Import a CSV or Excel list of contacts.'},
-      {id:'c-btn-export', label:'Export',                tip:'Download your contact list as CSV.'},
-      {id:'c-row-1',      label:'Contact: Abel Contact',  tip:'Each row = a contact with their communication channels.'},
-      {id:'c-row-3',      label:'Contact with phone',     tip:'The green ✅ confirms a phone number is verified.'},
+      {id:'c-search',     label:'Search',               tip:'Filter the list by name, email or number.'},
+      {id:'c-btn-add',    label:'Add a prospect',       tip:'Create a contact manually using the form.'},
+      {id:'c-btn-import', label:'Import',               tip:'Import a CSV or Excel list of contacts.'},
+      {id:'c-btn-export', label:'Export',               tip:'Download your contact list as CSV.'},
+      {id:'c-row-1',      label:'Contact: Abel Contact', tip:'Each row = a contact with their communication channels.'},
+      {id:'c-row-3',      label:'Contact with phone',   tip:'Green dot confirms a phone number is verified.'},
     ],
     fields:[
-      {name:'Full name',       hint:'First and last name — displayed in all views.',                              required:true},
-      {name:'Email',           hint:'Primary email address — preferred communication channel.',                   required:true},
-      {name:'SMS Phone',       hint:'Number for SMS notifications.',                                              required:false},
-      {name:'WhatsApp Phone',  hint:'Number for WhatsApp messages — must be linked to an account.',              required:false},
-      {name:'Messenger',       hint:'Facebook Messenger channel — optional.',                                     required:false},
+      {name:'Full name',        hint:'First and last name — displayed in all views.',                           required:true},
+      {name:'Email',            hint:'Primary email address — preferred communication channel.',                required:true},
+      {name:'SMS Phone',        hint:'Number for SMS notifications.',                                           required:false},
+      {name:'WhatsApp Phone',   hint:'Number for WhatsApp messages.',                                           required:false},
+      {name:'Messenger',        hint:'Facebook Messenger channel — optional.',                                  required:false},
     ]
   },
-  animId:'anim-step2',
-  buildAnim: function(lang){ return buildAnimContacts(lang, this.animId); }
+  animId:'anim-step2'
 },
 
-/* ── ÉTAPE 3 : Intégrations (Fichiers) ───────────────────── */
+/* ── ÉTAPE 3 : Intégrations ────────────────────────── */
 {
   fr:{
     tab:'Intégrations', tabIcon:'🔗',
     title:'Tes fichiers d\'intégration et de données',
-    intro:'L\'onglet Intégrations centralise tous les fichiers que tu as téléversés dans Comulead — rapports PDF, fichiers Excel, données sources. Ces fichiers sont disponibles dans tes espaces de travail.',
+    intro:'L\'onglet Intégrations centralise tous les fichiers téléversés dans Comulead — rapports PDF, fichiers Excel, données sources. Ces fichiers sont disponibles dans tes espaces de travail.',
     fieldsTitle:'Ce que tu vois pour chaque fichier',
-    tip:'<strong>Conseil :</strong> Organise tes fichiers en les associant au bon espace (Team, Projets, etc.) dès l\'upload. Ça facilite la recherche et évite les doublons dans tes analyses.',
-    animStepLabel:'Étape en cours',
+    tip:'<strong>Conseil :</strong> Associe chaque fichier au bon espace (Team, Projets…) dès l\'upload. Ça facilite la recherche et évite les doublons dans tes analyses.',
     animBadge:'Aperçu interactif',
-    sectionTitle:'Fichiers d\'intégration', sectionBadge:'4 fichiers',
-    tabs:['Détails','Membres','Contacts','Intégrations','Utilisation','Plans & Facturation'],
+    animStepLabel:'Étape en cours',
     modalTitle:'Paramètres généraux',
+    sectionTitle:'Intégrations',
+    sectionBadge:'4 fichiers',
+    tabs:['Détails','Membres','Contacts','Intégrations','Utilisation','Plans & Facturation'],
     animSteps:[
-      {id:'i-btn-filter', label:'Filtrer',              tip:'Filtre les fichiers par type, espace ou date.'},
-      {id:'i-btn-add',    label:'Ajouter un fichier',   tip:'Téléverse un nouveau fichier PDF ou Excel.'},
-      {id:'i-file-1',     label:'Rapport PDF',           tip:'Les PDF apparaissent avec leur taille et leur espace.'},
-      {id:'i-file-3',     label:'Fichier Excel',          tip:'Les fichiers Excel sont directement utilisables dans Cortex Data.'},
-      {id:'i-file-1-dl',  label:'Télécharger',           tip:'Télécharge une copie locale du fichier.'},
-      {id:'i-file-1-del', label:'Supprimer',             tip:'Supprime définitivement le fichier de ton espace.'},
+      {id:'i-btn-filter', label:'Filtrer',             tip:'Filtre les fichiers par type, espace ou date.'},
+      {id:'i-btn-add',    label:'Ajouter un fichier',  tip:'Téléverse un nouveau fichier PDF ou Excel.'},
+      {id:'i-file-1',     label:'Rapport PDF',          tip:'Les PDF apparaissent avec leur taille et leur espace.'},
+      {id:'i-file-3',     label:'Fichier Excel',         tip:'Les fichiers Excel sont utilisables dans Cortex Data.'},
+      {id:'i-file-1-dl',  label:'Télécharger',          tip:'Télécharge une copie locale du fichier.'},
+      {id:'i-file-1-del', label:'Supprimer',            tip:'Supprime définitivement le fichier de ton espace.'},
     ],
     fields:[
-      {name:'Nom du fichier',   hint:'Nom original du fichier téléversé — PDF ou Excel.',                        required:false},
-      {name:'Type',             hint:'Badge PDF (rouge) ou EXCEL (vert) — identifie le format en un coup d\'œil.',required:false},
-      {name:'Taille',           hint:'Poids du fichier en Ko — utile pour estimer le temps d\'analyse.',         required:false},
-      {name:'Date d\'ajout',    hint:'Date à laquelle le fichier a été ajouté à ton espace.',                    required:false},
-      {name:'Espace associé',   hint:'L\'espace ou le projet auquel le fichier est rattaché.',                   required:false},
+      {name:'Nom du fichier',   hint:'Nom original du fichier téléversé — PDF ou Excel.',                      required:false},
+      {name:'Type',             hint:'Badge PDF (rouge) ou EXCEL (vert) — identifie le format en un coup d\'œil.', required:false},
+      {name:'Taille',           hint:'Poids du fichier en Ko.',                                                 required:false},
+      {name:'Date d\'ajout',    hint:'Date à laquelle le fichier a été ajouté à ton espace.',                   required:false},
+      {name:'Espace associé',   hint:'L\'espace ou le projet auquel le fichier est rattaché.',                  required:false},
     ]
   },
   en:{
     tab:'Integrations', tabIcon:'🔗',
     title:'Your integration and data files',
-    intro:'The Integrations tab centralizes all files you\'ve uploaded to Comulead — PDF reports, Excel files, source data. These files are available across your workspaces.',
+    intro:'The Integrations tab centralizes all files uploaded to Comulead — PDF reports, Excel files, source data. Available across your workspaces.',
     fieldsTitle:'What you see for each file',
-    tip:'<strong>Tip:</strong> Organize your files by associating them with the right workspace (Team, Projects, etc.) at upload time. This makes searching easier and avoids duplicates in your analyses.',
-    animStepLabel:'Current step',
+    tip:'<strong>Tip:</strong> Associate each file with the right workspace at upload time. This makes searching easier and avoids duplicates.',
     animBadge:'Interactive preview',
-    sectionTitle:'Integration files', sectionBadge:'4 files',
-    tabs:['Details','Members','Contacts','Integrations','Usage','Plans & Billing'],
+    animStepLabel:'Current step',
     modalTitle:'General Settings',
+    sectionTitle:'Integrations',
+    sectionBadge:'4 files',
+    tabs:['Details','Members','Contacts','Integrations','Usage','Plans & Billing'],
     animSteps:[
-      {id:'i-btn-filter', label:'Filter',               tip:'Filter files by type, workspace or date.'},
-      {id:'i-btn-add',    label:'Add a file',            tip:'Upload a new PDF or Excel file.'},
-      {id:'i-file-1',     label:'PDF report',            tip:'PDFs appear with their size and workspace.'},
-      {id:'i-file-3',     label:'Excel file',             tip:'Excel files are directly usable in Cortex Data.'},
-      {id:'i-file-1-dl',  label:'Download',              tip:'Download a local copy of the file.'},
-      {id:'i-file-1-del', label:'Delete',                tip:'Permanently delete the file from your workspace.'},
+      {id:'i-btn-filter', label:'Filter',              tip:'Filter files by type, workspace or date.'},
+      {id:'i-btn-add',    label:'Add a file',           tip:'Upload a new PDF or Excel file.'},
+      {id:'i-file-1',     label:'PDF report',           tip:'PDFs appear with their size and workspace.'},
+      {id:'i-file-3',     label:'Excel file',            tip:'Excel files are directly usable in Cortex Data.'},
+      {id:'i-file-1-dl',  label:'Download',             tip:'Download a local copy of the file.'},
+      {id:'i-file-1-del', label:'Delete',               tip:'Permanently delete the file from your workspace.'},
     ],
     fields:[
-      {name:'File name',       hint:'Original name of the uploaded file — PDF or Excel.',                        required:false},
-      {name:'Type',            hint:'PDF (red) or EXCEL (green) badge — identifies the format at a glance.',     required:false},
-      {name:'Size',            hint:'File size in KB — useful for estimating analysis time.',                    required:false},
-      {name:'Date added',      hint:'The date when the file was added to your workspace.',                       required:false},
-      {name:'Associated space',hint:'The workspace or project the file is linked to.',                           required:false},
+      {name:'File name',        hint:'Original name of the uploaded file — PDF or Excel.',                     required:false},
+      {name:'Type',             hint:'PDF (red) or EXCEL (green) badge.',                                       required:false},
+      {name:'Size',             hint:'File size in KB.',                                                         required:false},
+      {name:'Date added',       hint:'The date when the file was added to your workspace.',                     required:false},
+      {name:'Associated space', hint:'The workspace or project the file is linked to.',                         required:false},
     ]
   },
-  animId:'anim-step3',
-  buildAnim: function(lang){ return buildAnimIntegrations(lang, this.animId); }
+  animId:'anim-step3'
 }
 
 ]; // fin STEPS_DATA
 
-/* ══════════════════════════════════════════════════════════════
-   BUILDERS — COMPOSANTS ANIMÉS
-══════════════════════════════════════════════════════════════ */
-function animShell(d, lang, animId, bodyHTML) {
+/* ══════════════════════════════════════════════════
+   BUILDERS HTML ANIMÉS
+══════════════════════════════════════════════════ */
+function animShell(stepIndex, lang, animId, bodyHTML) {
+  const d = STEPS_DATA[stepIndex][lang];
   return `
   <div class="anim-wrap">
     <div class="anim-badge"><span class="anim-badge-dot"></span>${d.animBadge}</div>
@@ -332,7 +330,7 @@ function animShell(d, lang, animId, bodyHTML) {
         <div class="mtitle-row">${d.modalTitle}</div>
         <div class="msubtitle">${lang==='fr'?'Gérez les informations générales de votre entreprise':'Manage your company\'s general information'}</div>
         <div class="mtabs">
-          ${d.tabs.map((t,i)=>`<div class="mtab${i===d.tabs.indexOf(d.sectionTitle)?'':''} ${t===d.sectionTitle?' active':''}">${t}</div>`).join('')}
+          ${d.tabs.map(t=>`<div class="mtab${t===d.sectionTitle?' active':''}">${t}</div>`).join('')}
         </div>
       </div>
       <div class="mbody">${bodyHTML}</div>
@@ -340,15 +338,22 @@ function animShell(d, lang, animId, bodyHTML) {
   </div>`;
 }
 
+function buildAnimStep(stepIndex, lang) {
+  const animId = STEPS_DATA[stepIndex].animId;
+  if (stepIndex === 0) return buildAnimMembres(lang, animId);
+  if (stepIndex === 1) return buildAnimContacts(lang, animId);
+  if (stepIndex === 2) return buildAnimIntegrations(lang, animId);
+  return '';
+}
+
 function buildAnimMembres(lang, animId) {
-  const d = STEPS_DATA[0][lang];
   const body = `
     <div class="members-hdr">
       <div class="members-title">${lang==='fr'?'Membres de l\'organisation (2)':'Organization members (2)'}</div>
       <button class="mbtn-invite" id="m-invite-btn">${lang==='fr'?'Inviter un membre':'Invite a member'}</button>
     </div>
     <div class="member-row" id="m-row-abel">
-      <div class="avatar" style="background:#4B33A8" id="m-avatar-abel">AP</div>
+      <div class="avatar" style="background:#4B33A8">AP</div>
       <div class="member-info">
         <div class="member-name-row">
           <span class="member-name">Pagbe E. Abel</span>
@@ -362,33 +367,29 @@ function buildAnimMembres(lang, animId) {
     <div class="member-row" id="m-row-steph">
       <div class="avatar" style="background:#EC4899">SS</div>
       <div class="member-info">
-        <div class="member-name-row">
-          <span class="member-name">Steph Stephane</span>
-        </div>
+        <div class="member-name-row"><span class="member-name">Steph Stephane</span></div>
         <div class="member-email">stephcourte@gmail.com</div>
         <div class="member-date">${lang==='fr'?'Rejoint le 07/03/2026':'Joined on 07/03/2026'}</div>
       </div>
       <div class="role-badge membre" id="m-role-steph">${lang==='fr'?'Membre':'Member'}</div>
     </div>`;
-  return animShell(d, lang, animId, body);
+  return animShell(0, lang, animId, body);
 }
 
 function buildAnimContacts(lang, animId) {
-  const d = STEPS_DATA[1][lang];
-  const contacts = [
-    {id:'c-row-1', name:'Abel Contact',       email:'contact@comulead.com', tel:'',              wa:'',              ok:false},
-    {id:'c-row-2', name:'Abel Comulead',       email:'info@comulead.com',   tel:'',              wa:'',              ok:false},
-    {id:'c-row-3', name:'Abel Pagbe Eboumbou', email:'abelpagbe@gmail.com', tel:'+15149774100',  wa:'',              ok:true},
-    {id:'c-row-4', name:'Abel Pagbe',          email:'abelpagbe@comulead.com',tel:'5149774100', wa:'',              ok:true},
-    {id:'c-row-5', name:'Jean Dupont',         email:'jean.dupont@example.com',tel:'+33123456789',wa:'+33987654321',ok:true},
-  ];
-  const rows = contacts.map(c=>`
+  const rows = [
+    {id:'c-row-1', name:'Abel Contact',       email:'contact@comulead.com',    tel:'',             ok:false},
+    {id:'c-row-2', name:'Abel Comulead',       email:'info@comulead.com',       tel:'',             ok:false},
+    {id:'c-row-3', name:'Abel Pagbe Eboumbou', email:'abelpagbe@gmail.com',     tel:'+15149774100', ok:true},
+    {id:'c-row-4', name:'Abel Pagbe',          email:'abelpagbe@comulead.com',  tel:'5149774100',   ok:true},
+    {id:'c-row-5', name:'Jean Dupont',         email:'jean.dupont@example.com', tel:'+33123456789', ok:true},
+  ].map(c=>`
     <tr id="${c.id}">
-      <td><div class="cell-check"></div></td>
+      <td><div style="width:14px;height:14px;border:1.5px solid #D1D5DB;border-radius:3px;"></div></td>
       <td>${c.name}</td>
-      <td><span class="cell-verified">${c.email} <span class="dot-ok"></span></span></td>
-      <td>${c.tel?`<span class="cell-verified">📱 ${c.tel} <span class="${c.ok?'dot-ok':'dot-err'}"></span></span>`:''}</td>
-      <td>${c.wa?`<span class="cell-verified">📱 ${c.wa} <span class="dot-ok"></span></span>`:''}</td>
+      <td>${c.email} <span class="dot-ok"></span></td>
+      <td>${c.tel?`📱 ${c.tel} <span class="${c.ok?'dot-ok':'dot-err'}"></span>`:''}</td>
+      <td></td>
     </tr>`).join('');
   const body = `
     <div class="contacts-toolbar">
@@ -399,50 +400,45 @@ function buildAnimContacts(lang, animId) {
     </div>
     <table class="ctable">
       <thead><tr>
-        <th></th>
-        <th>${lang==='fr'?'NOM COMPLET':'FULL NAME'}</th>
-        <th>EMAIL</th>
-        <th>${lang==='fr'?'TÉL. SMS':'SMS PHONE'}</th>
-        <th>WHATSAPP</th>
+        <th></th><th>${lang==='fr'?'NOM COMPLET':'FULL NAME'}</th>
+        <th>EMAIL</th><th>${lang==='fr'?'TÉL. SMS':'SMS PHONE'}</th><th>WHATSAPP</th>
       </tr></thead>
       <tbody>${rows}</tbody>
     </table>
     <div class="cpager">
-      <div class="pager-info">1 - 5 ${lang==='fr'?'sur':'of'} 5 ${lang==='fr'?'entrées':'entries'}</div>
+      <div class="pager-info">1-5 ${lang==='fr'?'sur 5 entrées':'of 5 entries'}</div>
       <div class="pager-btns">
         <div class="pager-btn">‹</div>
         <div class="pager-btn active">1</div>
         <div class="pager-btn">›</div>
       </div>
     </div>`;
-  return animShell(d, lang, animId, body);
+  return animShell(1, lang, animId, body);
 }
 
 function buildAnimIntegrations(lang, animId) {
-  const d = STEPS_DATA[2][lang];
   const files = [
-    {id:'i-file-1', icon:'📄', type:'pdf', badgeClass:'badge-pdf', badgeLabel:'PDF',
-     name:lang==='fr'?'RAPPORT D\'ACTIVITÉ — ONBOARDING & EXPÉRIENCE CLIENT 2025':'ACTIVITY REPORT — ONBOARDING & CLIENT EXPERIENCE 2025',
-     size:'154.90 Ko', date:lang==='fr'?'14/05/2026':'05/14/2026', space:'Team Suppression', spaceClass:'space-suppression'},
-    {id:'i-file-2', icon:'📄', type:'pdf', badgeClass:'badge-pdf', badgeLabel:'PDF',
-     name:lang==='fr'?'RAPPORT FINANCIER — EXERCICE 2025':'FINANCIAL REPORT — FISCAL YEAR 2025',
-     size:'219.30 Ko', date:lang==='fr'?'14/05/2026':'05/14/2026', space:'Team Suppression', spaceClass:'space-suppression'},
-    {id:'i-file-3', icon:'📊', type:'xlsx', badgeClass:'badge-xlsx', badgeLabel:'EXCEL',
+    {id:'i-file-1', icon:'📄', type:'pdf', bl:'badge-pdf', bt:'PDF',
+     name:lang==='fr'?'RAPPORT D\'ACTIVITÉ 2025':'ACTIVITY REPORT 2025',
+     size:'154.90 Ko', date:lang==='fr'?'14/05/2026':'05/14/2026', space:'Team Suppression', sc:'space-suppression'},
+    {id:'i-file-2', icon:'📄', type:'pdf', bl:'badge-pdf', bt:'PDF',
+     name:lang==='fr'?'RAPPORT FINANCIER 2025':'FINANCIAL REPORT 2025',
+     size:'219.30 Ko', date:lang==='fr'?'14/05/2026':'05/14/2026', space:'Team Suppression', sc:'space-suppression'},
+    {id:'i-file-3', icon:'📊', type:'xlsx', bl:'badge-xlsx', bt:'EXCEL',
      name:'1. Inventaire_Cortex_Template',
-     size:'10.53 Ko', date:lang==='fr'?'La semaine dernière':'Last week', space:'Projets', spaceClass:'space-projets'},
-    {id:'i-file-4', icon:'📄', type:'pdf', badgeClass:'badge-pdf', badgeLabel:'PDF',
+     size:'10.53 Ko', date:lang==='fr'?'Sem. dernière':'Last week', space:'Projets', sc:'space-projets'},
+    {id:'i-file-4', icon:'📄', type:'pdf', bl:'badge-pdf', bt:'PDF',
      name:'Prompt_Cortex_Services',
-     size:'259.58 Ko', date:lang==='fr'?'La semaine dernière':'Last week', space:'Projets', spaceClass:'space-projets'},
-  ];
-  const fileRows = files.map(f=>`
+     size:'259.58 Ko', date:lang==='fr'?'Sem. dernière':'Last week', space:'Projets', sc:'space-projets'},
+  ].map(f=>`
     <div class="file-row" id="${f.id}">
       <div class="file-icon ${f.type}">${f.icon}</div>
       <div class="file-info">
         <div class="file-name-row">
           <span class="file-name">${f.name}</span>
-          <span class="file-type-badge ${f.badgeClass}">${f.badgeLabel}</span>
+          <span class="file-type-badge ${f.bl}">${f.bt}</span>
         </div>
-        <div class="file-meta">${f.size} · ${lang==='fr'?'Ajouté':'Added'} ${f.date} · ${lang==='fr'?'dans':'in'} <span class="file-space-badge ${f.spaceClass}">${f.space}</span></div>
+        <div class="file-meta">${f.size} · ${lang==='fr'?'Ajouté':'Added'} ${f.date} · ${lang==='fr'?'dans':'in'} <span class="file-space-badge ${f.sc}">${f.space}</span></div>
       </div>
       <div class="file-actions">
         <span class="file-action-btn" id="${f.id}-dl">⬇</span>
@@ -457,13 +453,13 @@ function buildAnimIntegrations(lang, animId) {
         <button class="ibtn-add" id="i-btn-add">+ ${lang==='fr'?'Ajouter un fichier':'Add a file'}</button>
       </div>
     </div>
-    ${fileRows}`;
-  return animShell(d, lang, animId, body);
+    ${files}`;
+  return animShell(2, lang, animId, body);
 }
 
-/* ══════════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════
    MOTEUR D'ANIMATION
-══════════════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════ */
 const animators = {};
 
 function startAnimator(animId, steps) {
@@ -471,8 +467,15 @@ function startAnimator(animId, steps) {
     clearTimeout(animators[animId].t1);
     clearTimeout(animators[animId].t2);
   }
-  animators[animId] = { step: 0, t1: null, t2: null, steps };
+  animators[animId] = { step:0, t1:null, t2:null, steps };
   runAnimator(animId);
+}
+
+function stopAllAnimators() {
+  Object.keys(animators).forEach(id => {
+    clearTimeout(animators[id].t1);
+    clearTimeout(animators[id].t2);
+  });
 }
 
 function runAnimator(animId) {
@@ -482,39 +485,33 @@ function runAnimator(animId) {
   const shell = document.getElementById('shell-' + animId);
   if (!shell) return;
 
-  // Clear highlights
-  shell.querySelectorAll(
-    '.mbtn-invite,.member-row,.avatar,.role-badge,.csearch,.cbtn-add,.cbtn-sec,.ctable tr,.file-row,.ifilter-btn,.ibtn-add,.file-action-btn'
-  ).forEach(e => e.classList.remove('hl'));
+  shell.querySelectorAll('.mbtn-invite,.member-row,.role-badge,.csearch,.cbtn-add,.cbtn-sec,.ctable tr,.file-row,.ifilter-btn,.ibtn-add,.file-action-btn')
+       .forEach(e => e.classList.remove('hl'));
 
-  const el = document.getElementById(step.id);
+  const el  = document.getElementById(step.id);
   const cur = document.getElementById('cur-' + animId);
   const tip = document.getElementById('tip-' + animId);
 
   if (el && cur) {
     const sr = shell.getBoundingClientRect();
     const er = el.getBoundingClientRect();
-    const cx = er.left - sr.left + er.width / 2;
-    const cy = er.top  - sr.top  + er.height / 2;
-    cur.style.left = (cx - 7) + 'px';
-    cur.style.top  = (cy - 7) + 'px';
+    cur.style.left = (er.left - sr.left + er.width/2 - 7) + 'px';
+    cur.style.top  = (er.top  - sr.top  + er.height/2 - 7) + 'px';
     tip.style.opacity = '0';
 
     setTimeout(() => {
-      if (el) el.classList.add('hl');
+      if (!document.getElementById('shell-' + animId)) return;
+      el.classList.add('hl');
       const er2 = el.getBoundingClientRect();
       const sr2 = shell.getBoundingClientRect();
-      const tx = er2.left - sr2.left + er2.width / 2;
-      const ty = er2.top  - sr2.top;
       tip.textContent = step.tip;
-      tip.style.left = Math.max(4, tx - 75) + 'px';
-      tip.style.top  = (ty - 44) + 'px';
+      tip.style.left = Math.max(4, er2.left - sr2.left + er2.width/2 - 75) + 'px';
+      tip.style.top  = (er2.top - sr2.top - 44) + 'px';
       tip.style.opacity = '1';
-      const nameEl = document.getElementById('sname-' + animId);
-      if (nameEl) nameEl.textContent = step.label;
-      const pct = Math.round(((a.step + 1) / a.steps.length) * 100);
-      const pfill = document.getElementById('pfill-' + animId);
-      if (pfill) pfill.style.width = pct + '%';
+      const nm = document.getElementById('sname-' + animId);
+      if (nm) nm.textContent = step.label;
+      const pf = document.getElementById('pfill-' + animId);
+      if (pf) pf.style.width = Math.round(((a.step+1)/a.steps.length)*100) + '%';
     }, 420);
 
     setTimeout(() => { tip.style.opacity = '0'; }, 1500);
@@ -523,11 +520,10 @@ function runAnimator(animId) {
   a.t1 = setTimeout(() => {
     a.step = (a.step + 1) % a.steps.length;
     if (a.step === 0) {
-      shell.querySelectorAll(
-        '.mbtn-invite,.member-row,.avatar,.role-badge,.csearch,.cbtn-add,.cbtn-sec,.ctable tr,.file-row,.ifilter-btn,.ibtn-add,.file-action-btn'
-      ).forEach(e => e.classList.remove('hl'));
-      const pfill = document.getElementById('pfill-' + animId);
-      if (pfill) pfill.style.width = '0%';
+      if (shell) shell.querySelectorAll('.mbtn-invite,.member-row,.role-badge,.csearch,.cbtn-add,.cbtn-sec,.ctable tr,.file-row,.ifilter-btn,.ibtn-add,.file-action-btn')
+                      .forEach(e => e.classList.remove('hl'));
+      const pf = document.getElementById('pfill-' + animId);
+      if (pf) pf.style.width = '0%';
       a.t2 = setTimeout(() => runAnimator(animId), 600);
     } else {
       runAnimator(animId);
@@ -535,16 +531,17 @@ function runAnimator(animId) {
   }, 1800);
 }
 
-/* ══════════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════
    RENDU ÉTAPE
-══════════════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════ */
 function renderStepContent(index) {
+  stopAllAnimators();
+
   const step = STEPS_DATA[index];
   const lang = Lang.get();
   const data = step[lang];
-  const isLast = index === STEPS_DATA.length - 1;
-
-  const animHTML = step.buildAnim(lang);
+  const isLast = (index === STEPS_DATA.length - 1);
+  const animHTML = buildAnimStep(index, lang);
 
   let fieldsHtml = '<div class="fields-list">';
   data.fields.forEach(f => {
@@ -563,12 +560,12 @@ function renderStepContent(index) {
   fieldsHtml += '</div>';
 
   const prevBtn = index > 0
-    ? `<button class="btn btn-ghost" onclick="Capsule.prev()">${svgArrowLeft()}${lang==='fr'?'Précédent':'Previous'}</button>`
+    ? `<button class="btn btn-ghost" id="btn-prev">${svgArrowLeft()}${lang==='fr'?'Précédent':'Previous'}</button>`
     : `<a href="index.html" class="btn btn-ghost">${svgHome()}${lang==='fr'?'Hub':'Hub'}</a>`;
 
   const nextBtn = isLast
-    ? `<button class="btn btn-success" onclick="Capsule.next()">${lang==='fr'?'Terminer le module':'Complete module'}${svgCheck()}</button>`
-    : `<button class="btn btn-primary" onclick="Capsule.next()">${lang==='fr'?'Étape suivante':'Next step'}${svgArrowRight()}</button>`;
+    ? `<button class="btn btn-success" id="btn-next">${lang==='fr'?'Terminer le module':'Complete module'}${svgCheck()}</button>`
+    : `<button class="btn btn-primary" id="btn-next">${lang==='fr'?'Étape suivante':'Next step'}${svgArrowRight()}</button>`;
 
   document.getElementById('capsuleMain').innerHTML = `
     <div class="step-content">
@@ -593,24 +590,30 @@ function renderStepContent(index) {
       </div>
     </div>`;
 
+  // Attacher les événements via addEventListener — pas de onclick inline
+  const btnNext = document.getElementById('btn-next');
+  const btnPrev = document.getElementById('btn-prev');
+  if (btnNext) btnNext.addEventListener('click', () => Capsule.next());
+  if (btnPrev) btnPrev.addEventListener('click', () => Capsule.prev());
+
   setTimeout(() => startAnimator(step.animId, data.animSteps), 300);
 }
 
 function renderSidebarSteps(currentIndex) {
-  const sidebar  = document.getElementById('capsuleSidebar');
-  const lang     = Lang.get();
+  const sidebar   = document.getElementById('capsuleSidebar');
+  const lang      = Lang.get();
   const completed = Progress.getCompletedSteps(MODULE_ID);
   let html = `<div class="sidebar-module-name">${lang==='fr'?'Module 02 — Paramètres généraux':'Module 02 — General Settings'}</div>`;
 
   STEPS_DATA.forEach((step, i) => {
-    const data   = step[lang];
-    const isDone = completed.includes(i) || Progress.isModuleDone(MODULE_ID);
-    const isActive = i === currentIndex && !Progress.isModuleDone(MODULE_ID);
+    const data     = step[lang];
+    const isDone   = completed.includes(i) || Progress.isModuleDone(MODULE_ID);
+    const isActive = (i === currentIndex) && !Progress.isModuleDone(MODULE_ID);
     let stateClass = 'todo', indClass = 'todo', indContent = i+1;
-    if (isDone)   { stateClass='done';   indClass='done';   indContent=svgCheck(); }
+    if (isDone)        { stateClass='done';   indClass='done';   indContent=svgCheck(); }
     else if (isActive) { stateClass='active'; indClass='active'; }
     html += `
-      <div class="sidebar-step ${stateClass}" onclick="if(${isDone||isActive||i<=completed.length}) Capsule.goToStep(${i})">
+      <div class="sidebar-step ${stateClass}" data-step="${i}">
         <div class="step-indicator ${indClass}">${indContent}</div>
         <div class="step-info">
           <div class="step-name">${data.tab}</div>
@@ -628,13 +631,29 @@ function renderSidebarSteps(currentIndex) {
       <div class="progress-track" style="height:6px"><div class="progress-fill" style="width:0%"></div></div>
     </div>`;
   sidebar.innerHTML = html;
+
+  // Attacher clics sidebar via addEventListener
+  sidebar.querySelectorAll('.sidebar-step').forEach(el => {
+    const i = parseInt(el.dataset.step);
+    const isDone   = completed.includes(i) || Progress.isModuleDone(MODULE_ID);
+    const isActive = (i === currentIndex) && !Progress.isModuleDone(MODULE_ID);
+    if (isDone || isActive || i <= completed.length) {
+      el.addEventListener('click', () => Capsule.goToStep(i));
+    }
+  });
 }
 
-/* ══════════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════
    INIT
-══════════════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-  if (!Progress.isModuleUnlocked(MODULE_ID)) { window.location.href='index.html'; return; }
+  // Déverrouiller module-02 automatiquement si nécessaire (accès direct pendant tests)
+  if (!Progress.isModuleUnlocked(MODULE_ID)) {
+    const data = Progress.load();
+    data[MODULE_ID] = data[MODULE_ID] || {};
+    data[MODULE_ID].unlocked = true;
+    localStorage.setItem('cml_guide_progress', JSON.stringify(data));
+  }
   Capsule.registerRenderers(renderStepContent, renderSidebarSteps);
   Capsule.init({ moduleId: MODULE_ID, totalSteps: STEPS_DATA.length });
   document.querySelectorAll('.lang-btn').forEach(btn => {
