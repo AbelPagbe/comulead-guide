@@ -55,7 +55,8 @@ const Progress = (() => {
   // stepIndex: number (0-based)
   const markStep = (moduleId, stepIndex) => {
     const data = load();
-    if (!data[moduleId]) data[moduleId] = { completedSteps: [] };
+    if (!data[moduleId]) data[moduleId] = {};
+    if (!data[moduleId].completedSteps) data[moduleId].completedSteps = [];
     if (!data[moduleId].completedSteps.includes(stepIndex)) {
       data[moduleId].completedSteps.push(stepIndex);
     }
@@ -64,7 +65,8 @@ const Progress = (() => {
 
   const markModuleDone = (moduleId) => {
     const data = load();
-    if (!data[moduleId]) data[moduleId] = { completedSteps: [] };
+    if (!data[moduleId]) data[moduleId] = {};
+    if (!data[moduleId].completedSteps) data[moduleId].completedSteps = [];
     data[moduleId].done = true;
     save(data);
     unlockNext(moduleId);
